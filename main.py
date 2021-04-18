@@ -25,7 +25,7 @@ print("Successfully deployed!")
 
 @app.post('/webhook')
 async def respond(request: Request):
-    result = request.dict()
+    result = await request.json()
     #print(request.json)
     try:
         #check_s = result["check_suite"]
