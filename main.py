@@ -22,7 +22,7 @@ app = Flask("Kek")
 print("Successfully deployed!")
 
 @app.route('/webhook', methods=['POST'])
-def respond():
+async def respond():
     result = request.json
     #print(request.json)
     try:
@@ -35,7 +35,7 @@ def respond():
         commit_timestamp = umm["timestamp"]
         committer_name = umm["author"]["username"]
         committer_mail = umm["author"]["email"]
-        tgbot.send_message(-1001237141420,
+        await tgbot.send_message(-1001237141420,
                 f"Commit: [`{commit_id}`]({commit_url})\nMessage: *{commit_msg}*\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_mail}>",
                                     link_preview=False)
     except:
