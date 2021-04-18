@@ -39,4 +39,5 @@ async def respond():
     except:
         traceback.print_exc()
     return Response(status=200)
-app.run(host="0.0.0.0")
+port = int(os.environ.get('PORT', 6969))
+app.run(host="0.0.0.0", port=port)
