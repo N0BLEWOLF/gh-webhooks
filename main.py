@@ -3,7 +3,6 @@ import logging
 import random
 import sys
 import traceback
-import requests
 from decouple import config
 from telethon import Button, TelegramClient, events
 from flask import Flask, request, Response
@@ -16,7 +15,7 @@ APP_ID = config("APP_ID", default=None, cast=int)
 API_HASH = config("API_HASH", default=None)
 BOT_TOKEN = config("BOT_TOKEN", default=None)
 
-tgbot = TelegramClient("Botzhub", APP_ID, API_HASH).start(bot_token=BOT_TOKEN)
+tgbot = TelegramClient("kensur", APP_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
 app = Flask("Kek")
 
