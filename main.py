@@ -43,5 +43,4 @@ async def respond(requst: Request):
     except:
         traceback.print_exc()
     #return Response(status=200)
-port = int(config('PORT', default=6969))
-uvicorn.run(app, host="0.0.0.0", port=port)
+
