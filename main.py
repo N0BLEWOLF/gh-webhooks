@@ -17,10 +17,6 @@ logging.basicConfig(
 APP_ID = config("APP_ID", default=None, cast=int)
 API_HASH = config("API_HASH", default=None)
 BOT_TOKEN = config("BOT_TOKEN", default=None)
-REDIS_URI = config("REDIS_URI", default=None)
-REDIS_PASS = config("REDIS_PASS", default=None)
-SUDOS = config("SUDOS", default=None)
-APIS = config("APIS", default=None)
 
 tgbot = TelegramClient("Botzhub", APP_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
