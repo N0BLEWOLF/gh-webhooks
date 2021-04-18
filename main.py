@@ -33,7 +33,7 @@ def respond():
         commit_timestamp = umm["timestamp"]
         committer_name = umm["committer"]["name"]
         committer_mail = umm["committer"]["email"]
-        async def start(event):
+        async def start():
             await tgbot.send_message(-1001237141420,
                 f"Commit: `{commit_id}`\nMessage: *{commit_msg}*\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_email}>")
     except:
