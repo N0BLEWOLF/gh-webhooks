@@ -5,7 +5,8 @@ import sys
 import traceback
 from decouple import config
 from telethon import Button, TelegramClient, events
-from flask import Flask, request, Response
+from fastapi import FastAPI,Request
+#from flask import Flask, request, Response
 
 logging.basicConfig(
     format="[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s", level=logging.WARNING
@@ -17,13 +18,13 @@ BOT_TOKEN = config("BOT_TOKEN", default=None)
 
 tgbot = TelegramClient("kensur", APP_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
-app = Flask("Kek")
+#app = Flask("Kek")
 
 print("Successfully deployed!")
 
-@app.route('/webhook', methods=['POST'])
-async def respond():
-    result = request.json
+@app.post('/webhook')
+async def respond(requst: Request):
+    result = await request.json
     #print(request.json)
     try:
         #check_s = result["check_suite"]
@@ -40,6 +41,6 @@ async def respond():
                                     link_preview=False)
     except:
         traceback.print_exc()
-    return Response(status=200)
+    #return Response(status=200)
 port = int(config('PORT', default=6969))
 app.run(host="0.0.0.0", port=port)
