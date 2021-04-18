@@ -3,6 +3,7 @@ import logging
 import random
 import sys
 import traceback
+import uvicorn
 from decouple import config
 from telethon import Button, TelegramClient, events
 from fastapi import FastAPI,Request
@@ -19,7 +20,7 @@ BOT_TOKEN = config("BOT_TOKEN", default=None)
 tgbot = TelegramClient("kensur", APP_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
 #app = Flask("Kek")
-
+app = FastAPI()
 print("Successfully deployed!")
 
 @app.post('/webhook')
@@ -43,4 +44,4 @@ async def respond(requst: Request):
         traceback.print_exc()
     #return Response(status=200)
 port = int(config('PORT', default=6969))
-app.run(host="0.0.0.0", port=port)
+uvicorn.run(app, host="0.0.0.0", port=port)
