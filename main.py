@@ -36,7 +36,7 @@ def respond():
         committer_name = umm["author"]["username"]
         committer_mail = umm["author"]["email"]
         tgbot.send_message(-1001237141420,
-                f"Commit: [`{commit_id}`]({commit_url})\nMessage: *{commit_msg}*\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_email}>",
+                f"Commit: [`{commit_id}`]({commit_url})\nMessage: *{commit_msg}*\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_mail}>",
                                     link_preview=False)
     except:
         traceback.print_exc()
