@@ -22,7 +22,7 @@ app = Flask("Kek")
 print("Successfully deployed!")
 
 @app.route('/webhook', methods=['POST'])
-async def respond():
+def respond():
     result = request.json
     #print(request.json)
     try:
