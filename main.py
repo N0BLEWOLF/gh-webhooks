@@ -3,8 +3,6 @@ import logging
 import random
 import sys
 import traceback
-
-import redis
 import requests
 from decouple import config
 from telethon import Button, TelegramClient, events
@@ -40,7 +38,6 @@ async def respond():
             await tgbot.send_message(-1001237141420,
                 f"Commit: `{commit_id}`\nMessage: *{commit_msg}*\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_email}>"
     except:
-        import traceback
         traceback.print_exc()
     return Response(status=200)
 app.run(host="0.0.0.0", port=80)
