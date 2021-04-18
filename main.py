@@ -25,7 +25,7 @@ print("Successfully deployed!")
 
 @app.post('/webhook')
 async def respond(request: Request):
-    result = await request.json
+    result = request.json
     #print(request.json)
     try:
         #check_s = result["check_suite"]
@@ -38,8 +38,8 @@ async def respond(request: Request):
         committer_name = umm["author"]["username"]
         committer_mail = umm["author"]["email"]
         await tgbot.send_message(-1001237141420,
-                f"Commit: [`{commit_id}`]({commit_url})\nMessage: *{commit_msg}*\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_mail}>",
-                                    link_preview=False)
+                                 f"Commit: [`{commit_id}`]({commit_url})\nMessage: *{commit_msg}*\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_mail}>",
+                                 link_preview=False)
     except:
         traceback.print_exc()
     #return Response(status=200)
