@@ -24,7 +24,7 @@ app = FastAPI()
 print("Successfully deployed!")
 
 @app.post('/webhook')
-async def respond(requst: Request):
+async def respond(request: Request):
     result = await request.json
     #print(request.json)
     try:
