@@ -1,4 +1,3 @@
 python-decouple
 telethon
-flask
 fastapi
