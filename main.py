@@ -26,13 +26,15 @@ def respond():
     result = request.json
     #print(request.json)
     try:
-        check_s = result["check_suite"]
-        umm = check_s["app"]["head_commit"]
+        #check_s = result["check_suite"]
+        #umm = check_s["app"]["head_commit"]
+        umm = result["head_commit"]
         commit_msg = umm["message"]
         commit_id = umm["id"]
+        commit_url = umm["url"]
         commit_timestamp = umm["timestamp"]
-        committer_name = umm["committer"]["name"]
-        committer_mail = umm["committer"]["email"]
+        committer_name = umm["author"]["username"]
+        committer_mail = umm["author"]["email"]
         async def start():
             await tgbot.send_message(-1001237141420,
                 f"Commit: `{commit_id}`\nMessage: *{commit_msg}*\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_email}>")
