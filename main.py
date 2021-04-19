@@ -38,16 +38,20 @@ async def respond(request: Request):
         # check_s = result["check_suite"]
         # umm = check_s["app"]["head_commit"]
         if result.get("pull_request"):
+            pr_action = result["action"]
             pr = result["pull_request"]
             pull_r = pr["html_url"]
-            pr["id"]
-            pr["state"]
             pull_t = pr["title"]
             pull_body = pr["body"]
             pull_commits = pr["commits_url"]
             pull_ts = pr["created_at"]
-            pr["user"]["login"]
-            text = f"**Pull Request**\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts}\nBody: {pull_body}\n[Commits]({pull_commits})"
+            pull_pusher = pr["user"]["login"]
+            if pr_action == "opened":
+                text = f"**Opened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts}\n[Commits]({pull_commits})"
+            elif pr_action == "closed":
+                text = f"**Closed Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts}\n[Commits]({pull_commits})"
+            elif pr_action == "reopened":
+                text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts}\n[Commits]({pull_commits})"
             await tgbot.send_message(-1001237141420, text)
 
         else:
