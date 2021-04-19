@@ -42,7 +42,7 @@ async def respond(request: Request):
             pr = result["pull_request"]
             pull_r = pr["html_url"]
             pull_t = pr["title"]
-            pull_body = pr["body"]
+            pr["body"]
             pull_commits = pr["commits_url"]
             pull_ts = pr["created_at"]
             pull_pusher = pr["user"]["login"]
