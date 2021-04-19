@@ -28,8 +28,6 @@ app = FastAPI(debug=True)
 print("Successfully deployed!")
 
 
-
-
 @app.post("/webhook")
 async def respond(request: Request):
     result = await request.json()
