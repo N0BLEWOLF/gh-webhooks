@@ -48,6 +48,10 @@ async def respond(request: Request):
             pull_ts = pr["created_at"]
             pr["user"]["login"]
             text = f"**Pull Request**\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts}\nBody: {pull_body}\n[Commits]({pull_commits})"
+            await tgbot.send_message(
+                -1001237141420,
+                text
+            )
 
         else:
             umm = result["head_commit"]
