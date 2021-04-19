@@ -21,7 +21,7 @@ APP_ID = config("APP_ID", default=None, cast=int)
 API_HASH = config("API_HASH", default=None)
 BOT_TOKEN = config("BOT_TOKEN", default=None)
 
-tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH).start(bot_token=BOT_TOKEN)
+#tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH).start(bot_token=BOT_TOKEN)
 
 #app = Flask("Kek")
 app = FastAPI(debug=True)
@@ -29,7 +29,8 @@ print("Successfully deployed!")
 @app.post('/webhook')
 async def respond(request: Request):
     result = await request.json()
-#    await tgbot.start(bot_token=BOT_TOKEN)
+    tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH)
+	await tgbot.start(bot_token=BOT_TOKEN)
     #print(request.json)
     try:
         #check_s = result["check_suite"]
@@ -55,4 +56,4 @@ async def respond(request: Request):
 PORT = config("PORT")
 if __name__ == "__main__" :
     uvicorn.run("app", host="0.0.0.0", port=int(PORT), log_level="info")
-    tgbot.run_until_disconnected()
+    
