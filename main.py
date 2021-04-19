@@ -54,4 +54,5 @@ async def respond(request: Request):
 
 PORT = config("PORT")
 if __name__ == "__main__" :
+    tgbot.run_until_disconnected()
     uvicorn.run("app", host="0.0.0.0", port=int(PORT), log_level="info")
