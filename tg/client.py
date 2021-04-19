@@ -1,6 +1,6 @@
 from decouple import config
 from telethon import Button, TelegramClient, events
-
+import logging
 logging.basicConfig(
     format="[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s", level=logging.WARNING
 )
