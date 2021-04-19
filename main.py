@@ -53,4 +53,4 @@ async def respond(request: Request):
                    bot_token=BOT_TOKEN)"""
 
 PORT = config("PORT")
-uvicorn.run(app, host=0.0.0.0, port=PORT)
+uvicorn.run(app, host="0.0.0.0", port=PORT)
