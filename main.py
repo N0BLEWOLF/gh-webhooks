@@ -44,4 +44,4 @@ async def respond(request: Request):
     #return Response(status=200)
 
 
-tgbot.start()
+tgbot.run()
