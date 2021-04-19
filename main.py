@@ -37,17 +37,30 @@ async def respond(request: Request):
     try:
         # check_s = result["check_suite"]
         # umm = check_s["app"]["head_commit"]
-        umm = result["head_commit"]
-        commit_msg = umm["message"]
-        commit_id = umm["id"]
-        commit_url = umm["url"]
-        commit_timestamp = umm["timestamp"]
-        committer_name = umm["author"]["username"]
-        committer_mail = umm["author"]["email"]
-        await tgbot.send_message(
-            -1001237141420,
-            f"Commit: [`{commit_id}`]({commit_url})\nMessage: *{commit_msg}*\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_mail}>",
-        )
+        if result["pull_request"]:
+            pr = result["pull_request"]
+            pull_r = pr["html_url"]
+            pull_i = pr["id"]
+            state = pr["state"]
+            pull_t = pr["title"]
+            pull_body = pr["body"]
+            pull_commits = pr["commits_url"]
+            pull_ts = pr["created_at"]
+            puller = pr["user"]["login"]
+            text = f"**Pull Request**\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts}\nBody: {pull_body}\n[Commits]({pull_commits})"
+            
+        else:
+            umm = result["head_commit"]
+            commit_msg = umm["message"]
+            commit_id = umm["id"]
+            commit_url = umm["url"]
+            commit_timestamp = umm["timestamp"]
+            committer_name = umm["author"]["username"]
+            committer_mail = umm["author"]["email"]
+            await tgbot.send_message(
+                -1001237141420,
+                f"Commit: [{commit_id}]({commit_url})\nMessage: **{commit_msg}**\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_mail}>",
+            )
     except BaseException:
         traceback.print_exc()
     # return Response(status=200)
