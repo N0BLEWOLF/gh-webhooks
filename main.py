@@ -52,5 +52,5 @@ async def respond(request: Request):
                    api_hash=API_HASH,
                    bot_token=BOT_TOKEN)"""
 
-    
-uvicorn.run()
+PORT = config("PORT")
+uvicorn.run(app, host=0.0.0.0, port=PORT)
