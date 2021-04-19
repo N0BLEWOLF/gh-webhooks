@@ -12,3 +12,6 @@ BOT_TOKEN = config("BOT_TOKEN", default=None)
 tgbot = TelegramClient("kensur", APP_ID, API_HASH)
 
 tgbot.start(bot_token=BOT_TOKEN)
+
+if __name__ == "__main__":
+    tgbot.run_until_disconnected()
