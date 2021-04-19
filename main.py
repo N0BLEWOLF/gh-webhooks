@@ -3,13 +3,15 @@ import logging
 import random
 import sys
 import traceback
-import uvicorn
 from decouple import config
-from tg.client import tgbot
+from pyrogram import (
+    Client,
+    __version__
+)
 from fastapi import FastAPI,Request
 #from flask import Flask, request, Response
 
-"""logging.basicConfig(
+logging.basicConfig(
     format="[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s", level=logging.WARNING
 )
 
@@ -17,7 +19,7 @@ APP_ID = config("APP_ID", default=None, cast=int)
 API_HASH = config("API_HASH", default=None)
 BOT_TOKEN = config("BOT_TOKEN", default=None)
 
-tgbot = TelegramClient("kensur", APP_ID, API_HASH)"""
+"""tgbot = TelegramClient("kensur", APP_ID, API_HASH)"""
 
 #app = Flask("Kek")
 app = FastAPI()
@@ -45,4 +47,10 @@ async def respond(request: Request):
     #return Response(status=200)
 
 
-
+if __name == "__main__" :
+    tgbot = Client("kensur",
+                   api_id=APP_ID,
+                   api_hash=API_HASH,
+                   bot_token=BOT_TOKEN)
+    tgbot.run()
+    
