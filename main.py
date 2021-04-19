@@ -44,5 +44,4 @@ async def respond(request: Request):
         traceback.print_exc()
     #return Response(status=200)
 
-if __name__ == "__main__":
-    tgbot.run_until_disconnected()
+tgbot.run_until_disconnected()
