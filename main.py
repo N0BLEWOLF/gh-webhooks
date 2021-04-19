@@ -23,6 +23,7 @@ tgbot = TelegramClient("kensur", APP_ID, API_HASH)"""
 app = FastAPI()
 print("Successfully deployed!")
 
+
 @app.post('/webhook')
 async def respond(request: Request):
     result = request.json()
@@ -43,3 +44,5 @@ async def respond(request: Request):
         traceback.print_exc()
     #return Response(status=200)
 
+if __name__ == "__main__":
+    tgbot.run_until_disconnected()
