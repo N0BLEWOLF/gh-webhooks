@@ -4,10 +4,11 @@ import random
 import sys
 import traceback
 from decouple import config
-from pyrogram import (
-    Client,
-    __version__
-)
+#from pyrogram import (
+#    Client,
+#    __version__
+#)
+from telethon import TelegramClient
 from fastapi import FastAPI,Request
 #from flask import Flask, request, Response
 
@@ -19,7 +20,7 @@ APP_ID = config("APP_ID", default=None, cast=int)
 API_HASH = config("API_HASH", default=None)
 BOT_TOKEN = config("BOT_TOKEN", default=None)
 
-"""tgbot = TelegramClient("kensur", APP_ID, API_HASH)"""
+tgbot = TelegramClient("kensur", APP_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
 #app = Flask("Kek")
 app = FastAPI()
@@ -28,6 +29,7 @@ print("Successfully deployed!")
 @app.post('/webhook')
 async def respond(request: Request):
     result = await request.json()
+    await tgbot.run()
 #    await tgbot.start(bot_token=BOT_TOKEN)
     #print(request.json)
     try:
@@ -46,9 +48,9 @@ async def respond(request: Request):
     #return Response(status=200)
 
 
-tgbot = Client("kensur",
+"""tgbot = Client("kensur",
                    api_id=APP_ID,
                    api_hash=API_HASH,
-                   bot_token=BOT_TOKEN)
-tgbot.run()
+                   bot_token=BOT_TOKEN)"""
+
     
