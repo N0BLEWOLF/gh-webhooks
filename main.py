@@ -3,6 +3,7 @@ import logging
 import random
 import sys
 import traceback
+import uvicorn
 from decouple import config
 #from pyrogram import (
 #    Client,
@@ -20,12 +21,11 @@ APP_ID = config("APP_ID", default=None, cast=int)
 API_HASH = config("API_HASH", default=None)
 BOT_TOKEN = config("BOT_TOKEN", default=None)
 
-tgbot = TelegramClient("kensur", APP_ID, API_HASH).start(bot_token=BOT_TOKEN)
+tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH).start(bot_token=BOT_TOKEN)
 
 #app = Flask("Kek")
-app = FastAPI()
+app = FastAPI(debug=True)
 print("Successfully deployed!")
-tgbot.run_until_disconnected()
 @app.post('/webhook')
 async def respond(request: Request):
     result = await request.json()
@@ -53,3 +53,4 @@ async def respond(request: Request):
                    bot_token=BOT_TOKEN)"""
 
     
+uvicorn.run()
