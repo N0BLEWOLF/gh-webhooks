@@ -23,10 +23,10 @@ tgbot = TelegramClient("kensur", APP_ID, API_HASH)
 app = FastAPI()
 print("Successfully deployed!")
 
-tgbot.start(bot_token=BOT_TOKEN)
 @app.post('/webhook')
 async def respond(request: Request):
     result = request.json()
+    await tgbot.start(bot_token=BOT_TOKEN)
     #print(request.json)
     try:
         #check_s = result["check_suite"]
