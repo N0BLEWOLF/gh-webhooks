@@ -37,17 +37,16 @@ async def respond(request: Request):
     try:
         # check_s = result["check_suite"]
         # umm = check_s["app"]["head_commit"]
-        if result.get('commits'):
-            rng = len(data['commits'])
-            commits_text = ""
+        if result.get("commits"):
+            rng = len(data["commits"])
             if rng > 10:
                 rng = 10
             for x in range(rng):
-                commit = result['commits'][x]
-                if len(escape(commit['message'])) > 300:
-                    commit_msg = (commit['message']).split("\n")[0]
+                commit = result["commits"][x]
+                if len(escape(commit["message"])) > 300:
+                    commit_msg = (commit["message"]).split("\n")[0]
                 else:
-                    commit_msg = escape(commit['message'])
+                    commit_msg = escape(commit["message"])
                     text = f"**{commit_msg}**\n[{commit['id'][:7]}]({commit['url']})\n{commit['author']['name']} <{commit['author']['email']}>"
         elif result.get("pull_request"):
             pr_action = result["action"]
