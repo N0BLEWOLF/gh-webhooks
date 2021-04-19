@@ -25,13 +25,13 @@ BOT_TOKEN = config("BOT_TOKEN", default=None)
 
 # app = Flask("Kek")
 app = FastAPI(debug=True)
+tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH)
 print("Successfully deployed!")
 
 
 @app.post("/webhook")
 async def respond(request: Request):
     result = await request.json()
-    tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH)
     await tgbot.start(bot_token=BOT_TOKEN)
     # print(request.json)
     try:
