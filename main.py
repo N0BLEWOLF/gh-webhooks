@@ -43,10 +43,10 @@ async def respond(request: Request):
                 rng = 10
             for x in range(rng):
                 commit = result["commits"][x]
-                if len(escape(commit["message"])) > 300:
+                if len((commit["message"])) > 300:
                     commit_msg = (commit["message"]).split("\n")[0]
                 else:
-                    commit_msg = escape(commit["message"])
+                    commit_msg = (commit["message"])
                 text = f"**{commit_msg}**\n[{commit['id'][:7]}]({commit['url']})\n{commit['author']['name']} <{commit['author']['email']}>"
                 await tgbot.send_message(-1001237141420, text)
         elif result.get("pull_request"):
