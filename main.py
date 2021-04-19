@@ -26,7 +26,7 @@ tgbot.start()
 
 @app.post('/webhook')
 async def respond(request: Request):
-    result = request.json()
+    result = await request.json()
 #    await tgbot.start(bot_token=BOT_TOKEN)
     #print(request.json)
     try:
