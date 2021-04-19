@@ -46,10 +46,9 @@ async def respond(request: Request):
     #return Response(status=200)
 
 
-if __name__ == "__main__" :
-    tgbot = Client("kensur",
+tgbot = Client("kensur",
                    api_id=APP_ID,
                    api_hash=API_HASH,
                    bot_token=BOT_TOKEN)
-    tgbot.run()
+tgbot.run()
     
