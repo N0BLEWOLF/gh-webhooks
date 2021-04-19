@@ -47,7 +47,7 @@ async def respond(request: Request):
     #return Response(status=200)
 
 
-if __name == "__main__" :
+if __name__ == "__main__" :
     tgbot = Client("kensur",
                    api_id=APP_ID,
                    api_hash=API_HASH,
