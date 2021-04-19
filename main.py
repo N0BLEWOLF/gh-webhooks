@@ -37,7 +37,7 @@ async def respond(request: Request):
     try:
         # check_s = result["check_suite"]
         # umm = check_s["app"]["head_commit"]
-        if result["pull_request"]:
+        if result.get("pull_request"):
             pr = result["pull_request"]
             pull_r = pr["html_url"]
             pr["id"]
