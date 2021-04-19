@@ -2,3 +2,4 @@ python-decouple
 telethon
 fastapi
 uvicorn
+pyrogram
