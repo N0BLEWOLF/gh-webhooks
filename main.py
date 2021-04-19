@@ -38,7 +38,7 @@ async def respond(request: Request):
         # check_s = result["check_suite"]
         # umm = check_s["app"]["head_commit"]
         if result.get("commits"):
-            rng = len(data["commits"])
+            rng = len(result["commits"])
             if rng > 10:
                 rng = 10
             for x in range(rng):
@@ -47,7 +47,8 @@ async def respond(request: Request):
                     commit_msg = (commit["message"]).split("\n")[0]
                 else:
                     commit_msg = escape(commit["message"])
-                    text = f"**{commit_msg}**\n[{commit['id'][:7]}]({commit['url']})\n{commit['author']['name']} <{commit['author']['email']}>"
+                text = f"**{commit_msg}**\n[{commit['id'][:7]}]({commit['url']})\n{commit['author']['name']} <{commit['author']['email']}>"
+                await tgbot.send_message(-1001237141420, text)
         elif result.get("pull_request"):
             pr_action = result["action"]
             pr = result["pull_request"]
