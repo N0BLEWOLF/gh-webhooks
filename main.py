@@ -17,15 +17,16 @@ APP_ID = config("APP_ID", default=None, cast=int)
 API_HASH = config("API_HASH", default=None)
 BOT_TOKEN = config("BOT_TOKEN", default=None)
 
-tgbot = TelegramClient("kensur", APP_ID, API_HASH).start(bot_token=BOT_TOKEN)
+tgbot = TelegramClient("kensur", APP_ID, API_HASH)
 
 #app = Flask("Kek")
 app = FastAPI()
 print("Successfully deployed!")
 
+tgbot.start(bot_token=BOT_TOKEN)
 @app.post('/webhook')
 async def respond(request: Request):
-    result = await request.json()
+    result = request.json()
     #print(request.json)
     try:
         #check_s = result["check_suite"]
@@ -37,9 +38,7 @@ async def respond(request: Request):
         commit_timestamp = umm["timestamp"]
         committer_name = umm["author"]["username"]
         committer_mail = umm["author"]["email"]
-        await tgbot.send_message(-1001237141420,
-                                 f"Commit: [`{commit_id}`]({commit_url})\nMessage: *{commit_msg}*\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_mail}>",
-                                 link_preview=False)
+        await tgbot.send_message(-1001237141420, f"Commit: [`{commit_id}`]({commit_url})\nMessage: *{commit_msg}*\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_mail}>")
     except:
         traceback.print_exc()
     #return Response(status=200)
