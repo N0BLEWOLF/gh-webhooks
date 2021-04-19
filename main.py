@@ -54,4 +54,4 @@ async def respond(request: Request):
 
 PORT = config("PORT")
 if __name__ == "__main__" :
-    uvicorn.run(app, host="0.0.0.0", port=PORT, log_level="info")
+    uvicorn.run("app", host="0.0.0.0", port=PORT, log_level="info")
