@@ -25,11 +25,10 @@ tgbot = TelegramClient("kensur", APP_ID, API_HASH).start(bot_token=BOT_TOKEN)
 #app = Flask("Kek")
 app = FastAPI()
 print("Successfully deployed!")
-
+tgbot.run_until_disconnected()
 @app.post('/webhook')
 async def respond(request: Request):
     result = await request.json()
-    await tgbot.run()
 #    await tgbot.start(bot_token=BOT_TOKEN)
     #print(request.json)
     try:
