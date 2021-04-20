@@ -23,9 +23,7 @@ API_HASH = config("API_HASH", default=None)
 BOT_TOKEN = config("BOT_TOKEN", default=None)
 
 # tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH).start(bot_token=BOT_TOKEN)
-tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH).start(
-    bot_token=BOT_TOKEN
-)
+tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH)
 # app = Flask("Kek")
 app = FastAPI(debug=True)
 print("Successfully deployed!")
@@ -97,6 +95,7 @@ if __name__ == "__main__":
         ),
         daemon=True,
     ).start()
+    tgbot.start(bot_token=BOT_TOKEN)
     # uvicorn.run("main:app", host="0.0.0.0", port=int(PORT), log_level="info")
     tgbot.run_until_disconnected()
     # uvicorn.run("main:app", host="0.0.0.0", port=int(PORT), log_level="info")
