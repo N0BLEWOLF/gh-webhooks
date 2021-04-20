@@ -89,8 +89,9 @@ async def respond(request: Request):
 
 PORT = config("PORT")
 if __name__ == "__main__":
+    tgbot.start(bot_token=BOT_TOKEN)
     threading.Thread(
-        target=tgbot.start(bot_token=BOT_TOKEN),
+        target=tgbot.run_until_disconnected(),
         daemon=True,
     ).start()
     uvicorn.run("main:app", host="0.0.0.0", port=int(PORT), log_level="info")
