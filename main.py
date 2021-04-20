@@ -23,7 +23,7 @@ API_HASH = config("API_HASH", default=None)
 BOT_TOKEN = config("BOT_TOKEN", default=None)
 
 # tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH).start(bot_token=BOT_TOKEN)
-tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH)
+tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH).start(bot_token=BOT_TOKEN)
 # app = Flask("Kek")
 app = FastAPI(debug=True)
 print("Successfully deployed!")
@@ -89,7 +89,6 @@ async def respond(request: Request):
 
 PORT = config("PORT")
 if __name__ == "__main__":
-    tgbot.start(bot_token=BOT_TOKEN)
     threading.Thread(
         target=tgbot.run_until_disconnected(),
         daemon=True,
