@@ -1,11 +1,6 @@
 import logging
-import threading
-import traceback
 
-import uvicorn
 from decouple import config
-from fastapi import FastAPI, Request
-
 from telethon import TelegramClient
 
 logging.basicConfig(

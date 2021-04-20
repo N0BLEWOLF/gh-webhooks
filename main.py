@@ -1,10 +1,10 @@
-import logging
 import threading
 import traceback
 
 import uvicorn
 from decouple import config
 from fastapi import FastAPI, Request
+
 from tg import tgbot
 
 # from pyrogram import (
@@ -79,6 +79,7 @@ async def respond(request: Request):
             )
     except BaseException:
         traceback.print_exc()
+
 
 PORT = config("PORT")
 if __name__ == "__main__":
