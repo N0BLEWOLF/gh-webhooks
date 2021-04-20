@@ -10,7 +10,7 @@ from fastapi import FastAPI, Request
 #    Client,
 #    __version__
 # )
-from telethon import TelegramClient
+"""from telethon import TelegramClient
 
 # from flask import Flask, request, Response
 
@@ -22,8 +22,7 @@ APP_ID = config("APP_ID", default=None, cast=int)
 API_HASH = config("API_HASH", default=None)
 BOT_TOKEN = config("BOT_TOKEN", default=None)
 
-# tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH).start(bot_token=BOT_TOKEN)
-tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH)
+tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH)"""
 # app = Flask("Kek")
 app = FastAPI(debug=True)
 print("Successfully deployed!")
@@ -79,13 +78,6 @@ async def respond(request: Request):
             )
     except BaseException:
         traceback.print_exc()
-    # return Response(status=200)
-
-
-"""tgbot = Client("kensur",
-                   api_id=APP_ID,
-                   api_hash=API_HASH,
-                   bot_token=BOT_TOKEN)"""
 
 PORT = config("PORT")
 if __name__ == "__main__":
@@ -95,7 +87,6 @@ if __name__ == "__main__":
         ),
         daemon=True,
     ).start()
-    tgbot.start(bot_token=BOT_TOKEN)
     # uvicorn.run("main:app", host="0.0.0.0", port=int(PORT), log_level="info")
-    # tgbot.run_until_disconnected()
+    tgbot.run_until_disconnected()
     # uvicorn.run("main:app", host="0.0.0.0", port=int(PORT), log_level="info")
