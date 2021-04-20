@@ -5,6 +5,7 @@ import traceback
 import uvicorn
 from decouple import config
 from fastapi import FastAPI, Request
+from tg import tgbot
 
 # from pyrogram import (
 #    Client,
