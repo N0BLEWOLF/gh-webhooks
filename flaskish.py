@@ -59,7 +59,6 @@ def index(res):
     except BaseException:
         traceback.print_exc()
 
-
 PORT = config("PORT")
 if __name__ == "__main__":
     threading.Thread(
