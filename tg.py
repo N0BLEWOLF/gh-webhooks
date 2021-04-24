@@ -13,4 +13,4 @@ BOT_TOKEN = config("BOT_TOKEN", default=None)
 
 tgbot = TelegramClient("fuckheroku", api_id=APP_ID, api_hash=API_HASH)
 
-#tgbot.start(bot_token=BOT_TOKEN)
+# tgbot.start(bot_token=BOT_TOKEN)
