@@ -56,10 +56,8 @@ def index(res):
                 -1001237141420,
                 f"Commit: [{commit_id}]({commit_url})\nMessage: **{commit_msg}**\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_mail}>",
             ))
-    except BaseException:
+  except BaseException:
         traceback.print_exc()
-
-PORT = config("PORT")
 if __name__ == "__main__":
     threading.Thread(
         app.run(host= '0.0.0.0',debug=True)
