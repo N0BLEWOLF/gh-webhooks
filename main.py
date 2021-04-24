@@ -5,7 +5,7 @@ import uvicorn
 from decouple import config
 from fastapi import FastAPI, Request
 
-from tg import tgbot, BOT_TOKEN
+from tg import BOT_TOKEN, tgbot
 
 # from pyrogram import (
 #    Client,
