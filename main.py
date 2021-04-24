@@ -5,7 +5,7 @@ import uvicorn
 from decouple import config
 from fastapi import FastAPI, Request
 
-from tg import tgbot
+from tg import tgbot, BOT_TOKEN
 
 # from pyrogram import (
 #    Client,
@@ -89,6 +89,7 @@ if __name__ == "__main__":
         ),
         daemon=True,
     ).start()
+    tgbot.start(BOT_TOKEN)
     # uvicorn.run("main:app", host="0.0.0.0", port=int(PORT), log_level="info")
     tgbot.run_until_disconnected()
     # uvicorn.run("main:app", host="0.0.0.0", port=int(PORT), log_level="info")
