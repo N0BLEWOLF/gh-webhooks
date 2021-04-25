@@ -73,7 +73,8 @@ async def respond(request: Request):
             repo_url = result["repository"]["html_url"]
             stargiver_uname = result["sender"]["login"]
             stargiver_profile = result["sender"]["html_url"]
-            text = f"🌟 [{stargiver_uname}]({stargiver_profile}) gave a star to [{repo_name}]({repo_url})"
+            total_stars = result['repository']['stargazers_count']
+            text = f"🌟 [{stargiver_uname}]({stargiver_profile}) gave a star to [{repo_name}]({repo_url}).\nTotal 🌟Stars🌟 are now {total_stars}."
             post_tg(-1001237141420, text, parse_mode="markdown")
         else:
             umm = result["head_commit"]
