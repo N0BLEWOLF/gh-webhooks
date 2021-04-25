@@ -46,11 +46,12 @@ async def respond(request: Request):
             for x in range(rng):
                 commit = result["commits"][x]
                 commit_ts = commit["timestamp"]
+                str_time = pull_ts.stfrtime(d_form)
                 if len((commit["message"])) > 300:
                     commit_msg = (commit["message"]).split("\n")[0]
                 else:
                     commit_msg = commit["message"]
-                text = f"**{commit_msg}**\n[{commit['id'][:7]}]({commit['url']})\n**Commited at**{commit_ts.stfrtime(d_form)}\n{commit['author']['name']} <{commit['author']['email']}>"
+                text = f"**{commit_msg}**\n[{commit['id'][:7]}]({commit['url']})\n**Commited at**{str_time}\n{commit['author']['name']} <{commit['author']['email']}>"
                 post_tg(-1001237141420, text, parse_mode="markdown")
         elif result.get("pull_request"):
             pr_action = result["action"]
@@ -60,13 +61,14 @@ async def respond(request: Request):
             pr["body"]
             pull_commits = pr["commits_url"]
             pull_ts = pr["created_at"]
+            str_time = pull_ts.stfrtime(d_form)
             pull_pusher = pr["user"]["login"]
             if pr_action == "opened":
                 text = f"**Opened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts.stfrtime(d_form)}\n[Commits]({pull_commits})"
             elif pr_action == "closed":
                 text = f"**Closed Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts.stfrtime(d_form)}\n[Commits]({pull_commits})"
             else:
-                text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts.stfrtime(d_form)}\n[Commits]({pull_commits})"
+                text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})"
             post_tg(-1001237141420, text, parse_mode="markdown")
         elif result.get("action") == "started":
             repo_name = result["repository"]["name"]
