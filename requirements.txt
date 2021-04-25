@@ -1,6 +1,6 @@
 python-decouple
 telethon
 fastapi
+flask
 uvicorn
-pyrogram
 gunicorn
