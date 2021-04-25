@@ -3,7 +3,7 @@ import threading
 import traceback
 
 from aiogram.utils import executor
-from flask import Flask
+from flask import Flask, request
 
 from tg import tgbot
 
