@@ -1,7 +1,5 @@
 python-decouple
-telethon
-aiogram
+requests
 fastapi
 flask
 uvicorn
-gunicorn
