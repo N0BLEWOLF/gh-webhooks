@@ -2,4 +2,4 @@ python-decouple
 requests
 fastapi
 flask
-gunicorn
+uvicorn
