@@ -1,24 +1,21 @@
-import io
-import os
-import logging
-import random
-import sys
-import subprocess
 import traceback
-import threading
-import uvicorn
+
 import requests
+import uvicorn
 from decouple import config
-#from pyrogram import (
+from fastapi import FastAPI, Request
+
+# from pyrogram import (
 #    Client,
 #    __version__
-#)
+# )
 BOT_TOKEN = config("TOKEN")
-from fastapi import FastAPI,Request
-#from flask import Flask, request, Response
+# from flask import Flask, request, Response
 print("Successfully deployed!")
 app = FastAPI(debug=True)
-API = f'https://api.telegram.org/bot{BOT_TOKEN}/'
+API = f"https://api.telegram.org/bot{BOT_TOKEN}/"
+
+
 def post_tg(chat, message, parse_mode):
     """Send message to desired group"""
     response = requests.post(
@@ -27,14 +24,17 @@ def post_tg(chat, message, parse_mode):
             "chat_id": chat,
             "text": message,
             "parse_mode": parse_mode,
-            "disable_web_page_preview": True}).json()
+            "disable_web_page_preview": True,
+        },
+    ).json()
     return response
 
-@app.post('/webhook')
+
+@app.post("/webhook")
 async def respond(request: Request):
     result = await request.json()
-#    await tgbot.start(bot_token=BOT_TOKEN)
-    #print(request.json)
+    #    await tgbot.start(bot_token=BOT_TOKEN)
+    # print(request.json)
     d_form = "%d/%m/%y || %H:%M"
     try:
         # check_s = result["check_suite"]
@@ -68,13 +68,13 @@ async def respond(request: Request):
             else:
                 text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts.stfrtime(d_form)}\n[Commits]({pull_commits})"
             post_tg(-1001237141420, text, parse_mode="markdown")
-	elif result.get('action') == "started":
-		repo_name = result['repository']['name']
-		repo_url = result['repository']['html_url']
-		stargiver_uname = result['sender']['login']
-		stargiver_profile = result['sender']['html_url']
-		text = f"🌟 [{stargiver_uname}]({stargiver_profile}) gave a star to [{repo_name}]({repo_url})"
-		post_tg(-1001237141420, text, parse_mode="markdown")
+        elif result.get("action") == "started":
+            repo_name = result["repository"]["name"]
+            repo_url = result["repository"]["html_url"]
+            stargiver_uname = result["sender"]["login"]
+            stargiver_profile = result["sender"]["html_url"]
+            text = f"🌟 [{stargiver_uname}]({stargiver_profile}) gave a star to [{repo_name}]({repo_url})"
+            post_tg(-1001237141420, text, parse_mode="markdown")
         else:
             umm = result["head_commit"]
             commit_msg = umm["message"]
