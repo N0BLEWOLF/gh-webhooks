@@ -18,7 +18,7 @@ async def send_msg(id, msg):
 
 @app.route("/webhook", methods=["POST"])
 def index():
-    result = request.json
+    result = request.get_json()
     try:
         # check_s = result["check_suite"]
         # umm = check_s["app"]["head_commit"]
