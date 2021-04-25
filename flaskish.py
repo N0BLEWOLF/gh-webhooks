@@ -67,8 +67,7 @@ async def respond(request: Request):
                 text = f"**Closed Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts.stfrtime(d_form)}\n[Commits]({pull_commits})"
             else:
                 text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts.stfrtime(d_form)}\n[Commits]({pull_commits})"
-
-             post_tg(-1001237141420, text, parse_mode="markdown")
+            post_tg(-1001237141420, text, parse_mode="markdown")
 		elif result.get('action') == "started":
 			repo_name = result['repository']['name']
 			repo_url = result['repository']['html_url']
