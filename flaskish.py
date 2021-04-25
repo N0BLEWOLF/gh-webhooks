@@ -9,10 +9,10 @@ loop = asyncio.get_event_loop()
 
 app = Flask(__name__)
 
-@app.route("/webhook", methods=["GET"])
+@app.route("/webhook", methods=["POST"])
 def index(res):
-  cont = res.json
-  try:
+    result = res.json
+    try:
         # check_s = result["check_suite"]
         # umm = check_s["app"]["head_commit"]
         if result.get("commits"):
@@ -56,8 +56,9 @@ def index(res):
                 -1001237141420,
                 f"Commit: [{commit_id}]({commit_url})\nMessage: **{commit_msg}**\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_mail}>",
             ))
-  except BaseException:
+    except:
         traceback.print_exc()
+
 if __name__ == "__main__":
     threading.Thread(
 		app.run(host= '0.0.0.0',debug=True)
