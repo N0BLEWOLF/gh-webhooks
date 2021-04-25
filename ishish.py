@@ -29,10 +29,13 @@ def post_tg(chat, message, parse_mode):
     ).json()
     return response
 
+
 def better_time(text):
-    cr_date = datetime.strptime(cr_date, '%Y-%m-%dT%H:%M:%SZ')
+    cr_date = datetime.strptime(cr_date, "%Y-%m-%dT%H:%M:%SZ")
     cr_date = cr_date.strftime("%m/%d/%Y")
     return cr_time
+
+
 @app.post("/webhook")
 async def respond(request: Request):
     result = await request.json()
