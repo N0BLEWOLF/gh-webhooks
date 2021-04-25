@@ -32,8 +32,12 @@ def post_tg(chat, message, parse_mode):
 
 
 def better_time(text):
-    cr_date = datetime.strptime(text, "%Y-%m-%dT%H:%M:%SZ")
-    cr_time = cr_date.strftime("%m/%d/%Y")
+    try:
+        cr_date = datetime.strptime(text, "%Y-%m-%dT%H:%M:%SZ")
+        cr_time = cr_date.strftime("%m/%d/%Y %H:%M")
+    except ValueError:
+        cr_date = datetime.strptime(text, "%Y-%m-%dT%H:%M:%S+05:30")
+        cr_time = cr_date.strftime("%m/%d/%Y %H:%M")
     return cr_time
 
 
