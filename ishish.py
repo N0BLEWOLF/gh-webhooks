@@ -1,9 +1,9 @@
 import traceback
 from datetime import datetime
+from html import escape
 
 import requests
 import uvicorn
-from html import escape
 from decouple import config
 from fastapi import FastAPI, Request
 
