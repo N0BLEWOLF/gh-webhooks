@@ -11,6 +11,6 @@ APP_ID = config("APP_ID", default=None, cast=int)
 API_HASH = config("API_HASH", default=None)
 BOT_TOKEN = config("BOT_TOKEN", default=None)
 
-bot = Bot(token=BOT_TOKEN, parse_mode=types.ParseMode.markdown)
+bot = Bot(token=BOT_TOKEN)
 tgbot = Dispatcher(bot)
 # tgbot.start(bot_token=BOT_TOKEN)
