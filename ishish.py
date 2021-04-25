@@ -29,7 +29,10 @@ def post_tg(chat, message, parse_mode):
     ).json()
     return response
 
-
+def better_time(text):
+    cr_date = datetime.strptime(cr_date, '%Y-%m-%dT%H:%M:%SZ')
+    cr_date = cr_date.strftime("%m/%d/%Y")
+    return cr_time
 @app.post("/webhook")
 async def respond(request: Request):
     result = await request.json()
@@ -46,7 +49,7 @@ async def respond(request: Request):
             for x in range(rng):
                 commit = result["commits"][x]
                 pull_ts = commit["timestamp"]
-                str_time = pull_ts.stfrtime(d_form)
+                str_time = better_time(pull_ts)
                 if len((commit["message"])) > 300:
                     commit_msg = (commit["message"]).split("\n")[0]
                 else:
@@ -61,7 +64,7 @@ async def respond(request: Request):
             pr["body"]
             pull_commits = pr["commits_url"]
             pull_ts = pr["created_at"]
-            str_time = pull_ts.stfrtime(d_form)
+            str_time = better_time(pull_ts)
             pull_pusher = pr["user"]["login"]
             if pr_action == "opened":
                 text = f"**Opened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts.stfrtime(d_form)}\n[Commits]({pull_commits})"
