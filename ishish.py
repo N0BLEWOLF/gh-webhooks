@@ -45,7 +45,7 @@ async def respond(request: Request):
                 rng = 10
             for x in range(rng):
                 commit = result["commits"][x]
-                commit_ts = commit["timestamp"]
+                commit["timestamp"]
                 str_time = pull_ts.stfrtime(d_form)
                 if len((commit["message"])) > 300:
                     commit_msg = (commit["message"]).split("\n")[0]
