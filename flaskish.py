@@ -69,9 +69,9 @@ async def respond(request: Request):
                 text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts.stfrtime(d_form)}\n[Commits]({pull_commits})"
 
              post_tg(-1001237141420, text, parse_mode="markdown")
-		elif data.get('action') == "started":
-			text = f"🌟 {data['sender']['html_url']} {data['sender']['login']} gave a star to [{data['repository']['name']}]({data['repository']['html_url']})"
-			post_tg(-1001237141420, text, parse_mode="markdown")
+	elif data.get('action') == "started":
+		text = f"🌟 {data['sender']['html_url']} {data['sender']['login']} gave a star to [{data['repository']['name']}]({data['repository']['html_url']})"
+		post_tg(-1001237141420, text, parse_mode="markdown")
         else:
             umm = result["head_commit"]
             commit_msg = umm["message"]
