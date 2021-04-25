@@ -1,1 +1,1 @@
-web: gunicorn flaskish:app
+web: python3 ishish.py
