@@ -2,6 +2,7 @@ import traceback
 
 import requests
 import uvicorn
+from datetime import datetime
 from decouple import config
 from fastapi import FastAPI, Request
 
@@ -70,9 +71,9 @@ async def respond(request: Request):
             str_time = better_time(pull_ts)
             pull_pusher = pr["user"]["login"]
             if pr_action == "opened":
-                text = f"**Opened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts.stfrtime(d_form)}\n[Commits]({pull_commits})"
+                text = f"**Opened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})"
             elif pr_action == "closed":
-                text = f"**Closed Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts.stfrtime(d_form)}\n[Commits]({pull_commits})"
+                text = f"**Closed Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})"
             else:
                 text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})"
             post_tg(-1001237141420, text, parse_mode="markdown")
