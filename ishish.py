@@ -79,13 +79,8 @@ async def respond(request: Request):
             text = f"🌟 [{stargiver_uname}]({stargiver_profile}) gave a star to [{repo_name}]({repo_url}).\nTotal 🌟Stars🌟 are now {total_stars}."
             post_tg(-1001237141420, text, parse_mode="markdown")
         else:
-            umm = result["head_commit"]
-            commit_msg = umm["message"]
-            umm["id"]
-            umm["url"]
-            umm["timestamp"]
-            umm["author"]["username"]
-            umm["author"]["email"]
+            return
+            # IDK WHat
             # loop.run_until_complete()
     except BaseException:
         traceback.print_exc()
