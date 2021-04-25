@@ -5,6 +5,7 @@ import traceback
 from flask import Flask
 
 from tg import BOT_TOKEN, tgbot
+from aiogram.utils import exceptions, executor
 
 loop = asyncio.get_event_loop()
 
@@ -14,7 +15,8 @@ app = Flask(__name__)
 async def send_msg(id, msg):
     await tgbot.send_message(
         -1001237141420,
-        f"Commit: [{commit_id}]({commit_url})\nMessage: **{commit_msg}**\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_mail}>",
+        msg,
+        disable_web_page_preview=True
     )
 
 
@@ -69,5 +71,4 @@ def index(res):
 
 if __name__ == "__main__":
     threading.Thread((app.run(host="0.0.0.0", debug=True)), daemon=True).start()
-    tgbot.start(BOT_TOKEN)
-    tgbot.run_until_disconnected()
+    executor.start(dp, broadcaster())
