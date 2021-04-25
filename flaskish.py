@@ -63,8 +63,8 @@ def index(res):
         traceback.print_exc()
 
 if __name__ == "__main__":
-    threading.Thread(
-		app.run(host= '0.0.0.0',debug=True)
+    threading.Thread((
+		app.run(host='0.0.0.0',debug=True)
     ),daemon=True).start()
     tgbot.start(BOT_TOKEN)
     tgbot.run_until_disconnected()
