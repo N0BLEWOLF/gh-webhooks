@@ -5,7 +5,7 @@ import traceback
 from aiogram.utils import executor
 from flask import Flask, request
 
-from tg import tgbot
+from tg import tgbot, bot
 
 loop = asyncio.get_event_loop()
 
@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 
 async def send_msg(id, msg):
-    await tgbot.send_message(-1001237141420, msg, disable_web_page_preview=True)
+    await bot.send_message(-1001237141420, msg, disable_web_page_preview=True)
 
 
 @app.route("/webhook", methods=["POST"])
