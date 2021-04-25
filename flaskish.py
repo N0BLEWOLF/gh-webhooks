@@ -5,7 +5,7 @@ import traceback
 from aiogram.utils import executor
 from flask import Flask, request
 
-from tg import tgbot, bot
+from tg import bot
 
 loop = asyncio.get_event_loop()
 
