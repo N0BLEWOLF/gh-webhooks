@@ -1,8 +1,8 @@
 import traceback
+from datetime import datetime
 
 import requests
 import uvicorn
-from datetime import datetime
 from decouple import config
 from fastapi import FastAPI, Request
 
