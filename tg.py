@@ -1,8 +1,7 @@
 import logging
 
-from decouple import config
-from telethon import TelegramClient
 from aiogram import Bot, Dispatcher, types
+from decouple import config
 
 logging.basicConfig(
     format="[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s", level=logging.WARNING
