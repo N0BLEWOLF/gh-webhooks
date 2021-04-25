@@ -1,19 +1,22 @@
+import asyncio
 import threading
 import traceback
-import asyncio
-from decouple import config
-from flask import Flask, jsonify
+
+from flask import Flask
+
 from tg import BOT_TOKEN, tgbot
 
 loop = asyncio.get_event_loop()
 
 app = Flask(__name__)
 
+
 async def send_msg(id, msg):
     await tgbot.send_message(
-                -1001237141420,
-                f"Commit: [{commit_id}]({commit_url})\nMessage: **{commit_msg}**\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_mail}>",
-            )
+        -1001237141420,
+        f"Commit: [{commit_id}]({commit_url})\nMessage: **{commit_msg}**\nTimeStamp: `{commit_timestamp}`\nCommiter: {committer_name} <{committer_mail}>",
+    )
+
 
 @app.route("/webhook", methods=["POST"])
 def index(res):
@@ -48,26 +51,23 @@ def index(res):
                 text = f"**Closed Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts}\n[Commits]({pull_commits})"
             else:
                 text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts}\n[Commits]({pull_commits})"
-            
-            loop.run_until_complete(send_msg(
-                int("-1001237141420"),
-                text))
+
+            loop.run_until_complete(send_msg(int("-1001237141420"), text))
 
         else:
             umm = result["head_commit"]
             commit_msg = umm["message"]
-            commit_id = umm["id"]
-            commit_url = umm["url"]
-            commit_timestamp = umm["timestamp"]
-            committer_name = umm["author"]["username"]
-            committer_mail = umm["author"]["email"]
-            #loop.run_until_complete()
-    except:
+            umm["id"]
+            umm["url"]
+            umm["timestamp"]
+            umm["author"]["username"]
+            umm["author"]["email"]
+            # loop.run_until_complete()
+    except BaseException:
         traceback.print_exc()
 
+
 if __name__ == "__main__":
-    threading.Thread((
-		app.run(host='0.0.0.0',debug=True)
-    ),daemon=True).start()
+    threading.Thread((app.run(host="0.0.0.0", debug=True)), daemon=True).start()
     tgbot.start(BOT_TOKEN)
     tgbot.run_until_disconnected()
