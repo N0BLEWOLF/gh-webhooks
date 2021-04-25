@@ -63,7 +63,7 @@ async def respond(request: Request):
                     commit_msg = (commit["message"]).split("\n")[0]
                 else:
                     commit_msg = commit["message"]
-                text = f"<b>{escape(data['repository']['name'])}</b> - New {len(data['commits'])} commits ({escape(data['ref'].split('/')[-1])})\n{commit_msg}</b>\n[{commit['id'][:7]}]({commit['url']})\n<b>Commited at</b> {str_time}\n<b>Commited By:</b> {commit['author']['name']} <{commit['author']['email']}>"
+                text = f"<b>{escape(result['repository']['name'])}</b> - New {len(result['commits'])} commits ({escape(result['ref'].split('/')[-1])})\n{commit_msg}</b>\n[{commit['id'][:7]}]({commit['url']})\n<b>Commited at</b> {str_time}\n<b>Commited By:</b> {commit['author']['name']} <{commit['author']['email']}>"
                 post_tg(-1001237141420, text, parse_mode="HTML")
         elif result.get("pull_request"):
             pr_action = result["action"]
