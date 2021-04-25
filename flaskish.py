@@ -42,7 +42,10 @@ def index(res):
                 text = f"**Closed Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts}\n[Commits]({pull_commits})"
             else:
                 text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {pull_ts}\n[Commits]({pull_commits})"
-            loop.run_until_complete(await tgbot.send_message(-1001237141420, text))
+            
+            loop.run_until_complete(await tgbot.send_message(
+                int("-1001237141420"),
+                text))
 
         else:
             umm = result["head_commit"]
