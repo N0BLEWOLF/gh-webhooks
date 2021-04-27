@@ -52,6 +52,7 @@ async def respond(request: Request):
         # check_s = result["check_suite"]
         # umm = check_s["app"]["head_commit"]
         if result.get("commits"):
+            commits_text = ""
             rng = len(result["commits"])
             if rng > 10:
                 rng = 10
