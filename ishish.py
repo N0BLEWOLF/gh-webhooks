@@ -67,6 +67,7 @@ async def respond(request: Request):
                 commits_text += f"{commit_msg}\n<a href='{commit['url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
                 text = f"✨ <b>{escape(data['repository']['name'])}</b> : New {len(data['commits'])} commits on {escape(data['ref'].split('/')[-1])} branch <br><br>{commits_text}"
                 post_tg(-1001237141420, text, "html")
+                commits_text = ""
         elif result.get("pull_request"):
             pr_action = result["action"]
             pr = result["pull_request"]
