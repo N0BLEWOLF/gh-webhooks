@@ -59,15 +59,12 @@ async def respond(request: Request):
                 commit = result["commits"][x]
                 pull_ts = commit["timestamp"]
                 str_time = better_time(pull_ts)
-                if len((commit["message"])) > 300:
-                    commit_msg = (commit["message"]).split("\n")[0]
+                if len(escape(commit["message"])) > 300:
+                    commit_msg = escape((commit["message"]).split("\n")[0])
                 else:
                     commit_msg = commit["message"]
-                text = f"""<b>{escape(result['repository']['name'])}</b> - New {len(result['commits'])} commits ({escape(result['ref'].split('/')[-1])})
-{commit_msg}</b>
-[{commit['id'][:7]}]({commit['url']})
-<b>Commited at</b> {str_time}
-<b>Commited By:</b> {commit['author']['name']} <{commit['author']['email']}>"""
+                commits_text += f"{commit_msg}\n<a href='{commit['url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
+                text = f"✨ <b>{escape(data['repository']['name'])}</b> : New {len(data['commits'])} commits on {escape(data['ref'].split('/')[-1])} branch <br><br>{commits_text}"
                 post_tg(-1001237141420, text, "html")
         elif result.get("pull_request"):
             pr_action = result["action"]
