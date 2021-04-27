@@ -65,12 +65,11 @@ async def respond(request: Request):
                 else:
                     commit_msg = commit["message"]
 
-                if len(commits_text) > 1000:
+                if len(commits_text) < 1000:
                     commits_text += f"{commit_msg}<br><a href='{commit['url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}<br><br>"
                     text = f"✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits on {escape(result['ref'].split('/')[-1])} branch <br><br>{commits_text}"
                     response = post_tg(-1001237141420, text, parse_mode="html")
                     print(text)
-                    commits_text = ""
                     print(response)
         elif result.get("pull_request"):
             pr_action = result["action"]
