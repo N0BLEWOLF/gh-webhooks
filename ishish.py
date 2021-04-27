@@ -64,11 +64,13 @@ async def respond(request: Request):
                     commit_msg = escape((commit["message"]).split("\n")[0])
                 else:
                     commit_msg = commit["message"]
-                commits_text += f"{commit_msg}\n<a href='{commit['url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
-                text = f"✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits on {escape(result['ref'].split('/')[-1])} branch <br><br>{commits_text}"
-                post_tg(-1001237141420, text, parse_mode="html")
-                print(text)
-                commits_text = ""
+                    
+                if len(commits_text) > 1000:
+                    commits_text += f"{commit_msg}<br><a href='{commit['url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}<br><br>"
+                    text = f"✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits on {escape(result['ref'].split('/')[-1])} branch <br><br>{commits_text}"
+                    post_tg(-1001237141420, text, parse_mode="html")
+                    print(text)
+                    commits_text = ""
         elif result.get("pull_request"):
             pr_action = result["action"]
             pr = result["pull_request"]
