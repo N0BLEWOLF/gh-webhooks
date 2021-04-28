@@ -34,4 +34,4 @@ async def fuck(request):
 
 if __name__ == "__main__":
     threading.Thread(target=app.run(host="0.0.0.0", port=8000), daemon=True).start()
-    threading.Thread(target=tgbot.run_until_disconnected(), daemon=True).start()
+    tgbot.run_until_disconnected()
