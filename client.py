@@ -14,5 +14,4 @@ tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH)
 print("OK?")
 loop = asyncio.get_event_loop()
 tgbot.start(bot_token=BOT_TOKEN)
-if __name__ == "__main__":
-    tgbot.run_until_disconnected()
+tgbot.run_until_disconnected()
