@@ -15,10 +15,10 @@ async def test(request):
 
 @app.route("/")
 async def fuck(request):
-    om = await tgbot.send_message("The_Masoom_Bachha", "Hi")
+    om = await tgbot.send_message(-1001237141420, "TEST")
     print(om)
     return json({"msg": "MC"})
 
 
 if __name__ == "__main__":
-    threading.Thread(target=app.run(host="0.0.0.0", port=8000), daemon=True).start()
+    app.run(host="0.0.0.0", port=8000)
