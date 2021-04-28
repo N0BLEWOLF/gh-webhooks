@@ -1,7 +1,7 @@
 from sanic import Sanic
 from sanic.response import json
 
-from client import tgbot, config
+from client import config, tgbot
 
 app = Sanic(name="MC")
 
@@ -16,6 +16,7 @@ async def fuck(request):
     om = await tgbot.send_message(-1001237141420, "TEST")
     print(om)
     return json({"msg": "MC"})
+
 
 PORT = config("PORT")
 if __name__ == "__main__":
