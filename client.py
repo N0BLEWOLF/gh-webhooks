@@ -1,5 +1,5 @@
 import logging
-
+import asyncio
 from decouple import config
 from telethon import TelegramClient
 
@@ -12,5 +12,6 @@ BOT_TOKEN = config("TOKEN")
 tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH).start(
     bot_token=BOT_TOKEN
 )
-
-tgbot.run_until_disconnected()
+print("OK?")
+loop = asyncio.get_event_loop()
+loop.run_until_complete(tgbot.run_until_disconnected())
