@@ -4,3 +4,4 @@ fastapi
 flask
 uvicorn
 sanic
+telethon
