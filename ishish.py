@@ -68,7 +68,7 @@ async def respond(request: Request):
                 if len(commits_text) < 1000:
                     commits_text += f"{commit_msg}\n<a href='{commit['url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
                     text = f"""✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits on {escape(result['ref'].split('/')[-1])} branch
-{commits_text}"""
+{commits_text}#"""
                     response = post_tg(-1001237141420, text, parse_mode="html")
                     print(text)
                     print(response)
@@ -100,7 +100,8 @@ async def respond(request: Request):
         elif result.get("forkee"):
             forker = [result["sender"]["login"]](result["sender"]["html_url"])
             forked_repo = [result["repository"]["name"]](result["repository"]["html_url"])
-            text = f"{}"
+            text = f"🍴 {forker} **forked** {forked_repo}\n**Total Forks:** `{result['repository']['forks_count']}`⚡️"
+            post_tg(-1001237141420, text, parse_mode="markdown")
         else:
             return
             # IDK WHat
