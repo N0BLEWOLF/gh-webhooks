@@ -13,7 +13,7 @@ from fastapi import FastAPI, Request
 # )
 BOT_TOKEN = config("TOKEN")
 # from flask import Flask, request, Response
-print("Successfully deployed!")
+print("Go Injoi!")
 app = FastAPI(debug=True)
 API = f"https://api.telegram.org/bot{BOT_TOKEN}/"
 
