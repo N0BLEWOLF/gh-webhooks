@@ -102,8 +102,8 @@ async def respond(request: Request):
             repo_url = str(result["repository"]["html_url"])
             forker_u = str(result["sender"]["login"])
             forker_p = str(result["sender"]["html_url"])
-            forker = str(result[forker_u](forker_p))
-            forked_repo = [repo_n](repo_url)
+            forker = str([forker_u](forker_p))
+            forked_repo = str([repo_n](repo_url))
             text = f"""🍴 {forker} **forked** {forked_repo}\n**Total Forks:** `{result['repository']['forks_count']}`⚡️\n\n#Github"""
             post_tg(-1001237141420, text, parse_mode="markdown")
         else:
