@@ -22,4 +22,4 @@ async def fuck(request: Request):
 
 PORT = config("PORT")
 
-uvicorn.run("test:app", host="0.0.0.0", port=int(PORT), log_level="info", reload=False)
+#uvicorn.run("test:app", host="0.0.0.0", port=int(PORT), log_level="info", reload=False)
