@@ -98,10 +98,12 @@ async def respond(request: Request):
             text = f"🌟 [{stargiver_uname}]({stargiver_profile}) gave a star to [{repo_name}]({repo_url}).\nTotal 🌟Stars🌟 are now {total_stars}."
             post_tg(-1001237141420, text, parse_mode="markdown")
         elif result.get("forkee"):
-            forker = [result["sender"]["login"]](result["sender"]["html_url"])
-            forked_repo = [str(result["repository"]["name"])](
-                str(result["repository"]["html_url"])
-            )
+            repo_n = str(result["repository"]["name"])
+            repo_url = str(result["repository"]["html_url"])
+            forker_u = str(result["sender"]["login"])
+            forker_p = str(result["sender"]["html_url"])
+            forker = [forker_u](forker_p)
+            forked_repo = [repo_n](repo_url)
             text = f"🍴 {forker} **forked** {forked_repo}\n**Total Forks:** `{result['repository']['forks_count']}`⚡️"
             post_tg(-1001237141420, text, parse_mode="markdown")
         else:
