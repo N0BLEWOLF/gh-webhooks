@@ -1,11 +1,12 @@
-import logging
 import threading
 
 from sanic import Sanic
 from sanic.response import json
-from telethon import TelegramClient
+
 from client import tgbot
+
 app = Sanic(name="MC")
+
 
 @app.route("/omk")
 async def test(request):
