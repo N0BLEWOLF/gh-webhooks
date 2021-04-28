@@ -1,19 +1,21 @@
-from fastapi import FastAPI, Request
 import uvicorn
+from fastapi import FastAPI, Request
+
 from client import config, tgbot
 
 app = FastAPI(debug=True)
 
+
 @app.get("/omk")
 async def test(request: Request):
-    return ({"hello": "world"})
+    return {"hello": "world"}
 
 
 @app.get("/")
 async def fuck(request: Request):
     om = await tgbot.send_message(-1001237141420, "TEST")
     print(om)
-    return ({"msg": "MC"})
+    return {"msg": "MC"}
 
 
 PORT = config("PORT")
