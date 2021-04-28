@@ -114,4 +114,5 @@ async def respond(request: Request):
 
 PORT = config("PORT")
 if __name__ == "__main__":
+    freeze_support()
     uvicorn.run("ishish:app", host="0.0.0.0", port=int(PORT), log_level="info")
