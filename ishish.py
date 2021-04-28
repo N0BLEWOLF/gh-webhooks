@@ -1,7 +1,6 @@
 import traceback
 from datetime import datetime
 from html import escape
-from multiprocessing import freeze_support
 
 import requests
 import uvicorn
