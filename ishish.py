@@ -99,7 +99,9 @@ async def respond(request: Request):
             post_tg(-1001237141420, text, parse_mode="markdown")
         elif result.get("forkee"):
             forker = [result["sender"]["login"]](result["sender"]["html_url"])
-            forked_repo = [result["repository"]["name"]](result["repository"]["html_url"])
+            forked_repo = [result["repository"]["name"]](
+                result["repository"]["html_url"]
+            )
             text = f"🍴 {forker} **forked** {forked_repo}\n**Total Forks:** `{result['repository']['forks_count']}`⚡️"
             post_tg(-1001237141420, text, parse_mode="markdown")
         else:
