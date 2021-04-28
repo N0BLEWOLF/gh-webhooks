@@ -3,3 +3,4 @@ requests
 fastapi
 flask
 uvicorn
+sanic
