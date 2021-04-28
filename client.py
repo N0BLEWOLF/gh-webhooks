@@ -1,5 +1,6 @@
-import logging
 import asyncio
+import logging
+
 from decouple import config
 from telethon import TelegramClient
 
