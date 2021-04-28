@@ -68,7 +68,7 @@ async def respond(request: Request):
                 if len(commits_text) < 1000:
                     commits_text += f"{commit_msg}\n<a href='{commit['url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
                     text = f"""✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits on {escape(result['ref'].split('/')[-1])} branch
-{commits_text}#"""
+{commits_text}#Github"""
                     response = post_tg(-1001237141420, text, parse_mode="html")
                     print(text)
                     print(response)
@@ -83,11 +83,11 @@ async def respond(request: Request):
             str_time = better_time(pull_ts)
             pull_pusher = pr["user"]["login"]
             if pr_action == "opened":
-                text = f"**Opened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})"
+                text = f"**Opened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})\n\n#Github"
             elif pr_action == "closed":
-                text = f"**Closed Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})"
+                text = f"**Closed Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})\n\n#Github"
             else:
-                text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})"
+                text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})\n\n#Github"
             post_tg(-1001237141420, text, parse_mode="markdown")
         elif result.get("action") == "started":
             repo_name = result["repository"]["name"]
@@ -95,16 +95,16 @@ async def respond(request: Request):
             stargiver_uname = result["sender"]["login"]
             stargiver_profile = result["sender"]["html_url"]
             total_stars = result["repository"]["stargazers_count"]
-            text = f"🌟 [{stargiver_uname}]({stargiver_profile}) gave a star to [{repo_name}]({repo_url}).\nTotal 🌟Stars🌟 are now {total_stars}."
+            text = f"🌟 [{stargiver_uname}]({stargiver_profile}) gave a star to [{repo_name}]({repo_url}).\nTotal 🌟Stars🌟 are now {total_stars}.\n\n#Github"
             post_tg(-1001237141420, text, parse_mode="markdown")
         elif result.get("forkee"):
             repo_n = str(result["repository"]["name"])
             repo_url = str(result["repository"]["html_url"])
             forker_u = str(result["sender"]["login"])
             forker_p = str(result["sender"]["html_url"])
-            forker = [forker_u](forker_p)
+            forker = str(result[forker_u](forker_p))
             forked_repo = [repo_n](repo_url)
-            text = f"🍴 {forker} **forked** {forked_repo}\n**Total Forks:** `{result['repository']['forks_count']}`⚡️"
+            text = f"""🍴 {forker} **forked** {forked_repo}\n**Total Forks:** `{result['repository']['forks_count']}`⚡️\n\n#Github"""
             post_tg(-1001237141420, text, parse_mode="markdown")
         else:
             return
