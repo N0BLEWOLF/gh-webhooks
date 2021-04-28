@@ -6,6 +6,7 @@ import requests
 import uvicorn
 from decouple import config
 from fastapi import FastAPI, Request
+from multiprocessing import freeze_support
 
 # from pyrogram import (
 #    Client,
