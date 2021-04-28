@@ -7,6 +7,7 @@ app = FastAPI(debug=True)
 
 print("Go Injoi!")
 
+
 @app.get("/")
 async def test(request: Request):
     return {"hello": "world"}
