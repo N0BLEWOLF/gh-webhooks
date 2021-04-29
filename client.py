@@ -20,4 +20,4 @@ async def main():
     await tgbot.run_until_disconnected()
 
 
-omkk.run_until_complete(main())
+asyncio.ensure_future(main())
