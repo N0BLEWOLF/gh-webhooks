@@ -16,6 +16,6 @@ print("OK?")
 
 omkk = asyncio.get_event_loop()
 
-dp = Dispatcher(bot)
+dp = Dispatcher(tgbot)
 
 executor.start_polling(dp, skip_updates=True)
