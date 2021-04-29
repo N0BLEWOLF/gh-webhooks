@@ -1,11 +1,9 @@
 import asyncio
 import logging
 
+import nest_asyncio
 from decouple import config
 from telethon import TelegramClient
-
-import nest_asyncio
-
 
 logging.basicConfig(
     format="[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s", level=logging.WARNING
@@ -19,6 +17,9 @@ omkk = asyncio.get_event_loop()
 tgbot.start(bot_token=BOT_TOKEN)
 nest_asyncio.apply()
 
+
 async def main():
     await tgbot.run_until_disconnected()
+
+
 main()
