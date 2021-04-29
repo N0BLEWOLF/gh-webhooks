@@ -3,5 +3,4 @@ requests
 fastapi
 uvicorn
 telethon
-nest-asyncio
-aiorun
+aiogram
