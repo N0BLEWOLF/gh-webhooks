@@ -4,6 +4,7 @@ import logging
 import nest_asyncio
 from decouple import config
 from telethon import TelegramClient
+from aiorun import run
 
 logging.basicConfig(
     format="[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s", level=logging.WARNING
@@ -21,5 +22,4 @@ nest_asyncio.apply()
 async def main():
     await tgbot.run_until_disconnected()
 
-
-main()
+run(main())
