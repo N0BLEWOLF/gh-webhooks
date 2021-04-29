@@ -4,3 +4,4 @@ fastapi
 uvicorn
 telethon
 nest-asyncio
+aiorun
