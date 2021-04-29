@@ -1,9 +1,8 @@
 import asyncio
 import logging
 
-from aiorun import run
+from aiogram import Bot, Dispatcher, executor
 from decouple import config
-from aiogram import Bot, Dispatcher, executor, types
 
 logging.basicConfig(
     format="[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s", level=logging.WARNING
