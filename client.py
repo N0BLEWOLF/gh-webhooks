@@ -19,4 +19,4 @@ omkk = asyncio.get_event_loop()
 
 dp = Dispatcher(bot)
 
-executor.start_polling(dp, skip_updates=True))
+executor.start_polling(dp, skip_updates=True)
