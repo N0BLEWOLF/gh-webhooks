@@ -1,7 +1,6 @@
 python-decouple
 requests
 fastapi
-flask
 uvicorn
-sanic
 telethon
+nest-asyncio
