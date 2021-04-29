@@ -1,7 +1,6 @@
 import asyncio
 import logging
 
-import nest_asyncio
 from aiorun import run
 from decouple import config
 from telethon import TelegramClient
@@ -15,11 +14,9 @@ BOT_TOKEN = config("TOKEN")
 tgbot = TelegramClient("kensur", api_id=APP_ID, api_hash=API_HASH)
 print("OK?")
 omkk = asyncio.get_event_loop()
-tgbot.start(bot_token=BOT_TOKEN)
-nest_asyncio.apply()
-
 
 async def main():
+    await tgbot.start(bot_token=BOT_TOKEN)
     await tgbot.run_until_disconnected()
 
 
