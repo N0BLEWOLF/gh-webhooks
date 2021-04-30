@@ -23,9 +23,9 @@ omkk = asyncio.get_event_loop()
 print("Go Injoi!")
 
 
-@app.get("/")
+"""@app.get("/")
 async def test(request: Request):
-    return {"hello": "world"}
+    return {"hello": "world"}"""
 
 
 async def webh(request):
