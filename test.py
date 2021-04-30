@@ -18,9 +18,7 @@ print("OK?")
 
 omkk = asyncio.get_event_loop()
 
-dp = Dispatcher(tgbot)
-
-app = FastAPI(debug=True)
+#app = FastAPI(debug=True)
 
 print("Go Injoi!")
 
