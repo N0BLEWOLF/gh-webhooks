@@ -84,7 +84,16 @@ async def respond(request):
                     text = f"""✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits to {escape(result['ref'].split('/')[-1])} branch
 {commits_text}#Github"""
                     response = await tgbot.send_message(
-                        -1001237141420, text, parse_mode="html", link_preview=False, buttons=[[Button.url("View Commit", {commit['url']}), Button.url("Commited By", commit["sender"]["html_url"])]]
+                        -1001237141420,
+                        text,
+                        parse_mode="html",
+                        link_preview=False,
+                        buttons=[
+                            [
+                                Button.url("View Commit", {commit["url"]}),
+                                Button.url("Commited By", commit["sender"]["html_url"]),
+                            ]
+                        ],
                     )
         elif result.get("pull_request"):
             pr_action = result["action"]
