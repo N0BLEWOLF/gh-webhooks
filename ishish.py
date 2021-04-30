@@ -3,14 +3,11 @@ from datetime import datetime
 from html import escape
 
 import requests
-import uvicorn
 from decouple import config
-from fastapi import FastAPI, Request
+from telethon import events, Button
 
-# from pyrogram import (
-#    Client,
-#    __version__
-# )
+from client import tgbot
+
 BOT_TOKEN = config("TOKEN")
 # from flask import Flask, request, Response
 print("Go Injoi!")
@@ -41,13 +38,20 @@ def better_time(text):
         cr_time = cr_date.strftime("%m/%d/%Y %H:%M")
     return cr_time
 
-
-@app.post("/webhook")
-async def respond(request: Request):
+async def respond(request):
     result = await request.json()
     #    await tgbot.start(bot_token=BOT_TOKEN)
     # print(request.json)
     d_form = "%d/%m/%y || %H:%M"
+    @tgbot.on(events.CallbackQuery(pattern="stars"))
+    async def callback(event):
+        total_stars = result["repository"]["stargazers_count"]
+        await event.answer(f"Total 🌟Stars🌟 are now {total_stars} .", alert=True)
+    
+    @tgbot.on(events.CallbackQuery(pattern="forks"))
+    async def callback(event):
+        total_forks = result['repository']['forks_count']
+        await event.answer(f"Total Forks are {total_forks} ⚡️ .", alert=True)
     try:
         # check_s = result["check_suite"]
         # umm = check_s["app"]["head_commit"]
@@ -69,7 +73,7 @@ async def respond(request: Request):
                     commits_text += f"{commit_msg}\n<a href='{commit['url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
                     text = f"""✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits on {escape(result['ref'].split('/')[-1])} branch
 {commits_text}#Github"""
-                    response = post_tg(-1001237141420, text, parse_mode="html")
+                    response = await tgbot.send_message(-1001237141420, text, parse_mode="html")
                     print(text)
                     print(response)
         elif result.get("pull_request"):
@@ -88,22 +92,22 @@ async def respond(request: Request):
                 text = f"**Closed Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})\n\n#Github"
             else:
                 text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})\n\n#Github"
-            post_tg(-1001237141420, text, parse_mode="markdown")
+            await tgbot.send_message(-1001237141420, text, parse_mode="markdown")
         elif result.get("action") == "started":
             repo_name = result["repository"]["name"]
             repo_url = result["repository"]["html_url"]
             stargiver_uname = result["sender"]["login"]
             stargiver_profile = result["sender"]["html_url"]
             total_stars = result["repository"]["stargazers_count"]
-            text = f"🌟 [{stargiver_uname}]({stargiver_profile}) gave a star to [{repo_name}]({repo_url}).\nTotal 🌟Stars🌟 are now {total_stars}.\n\n#Github"
-            post_tg(-1001237141420, text, parse_mode="markdown")
+            text = f"🌟 [{stargiver_uname}]({stargiver_profile}) gave a star to [{repo_name}]({repo_url}).\n\n#Github"
+            await tgbot.send_message(-1001237141420, text, parse_mode="markdown", Button.inline('Total Stars', b'stars'))
         elif result.get("forkee"):
             repo_n = str(result["repository"]["name"])
             repo_url = str(result["repository"]["html_url"])
             forker_u = str(result["sender"]["login"])
             forker_p = str(result["sender"]["html_url"])
-            text = f"""🍴[{forker_u}]({forker_p}) *forked* [{repo_n}]({repo_url})\n*Total Forks:* `{result['repository']['forks_count']}`⚡️\n\n#Github"""
-            post_tg(-1001237141420, text, parse_mode="markdown")
+            text = f"""🍴[{forker_u}]({forker_p}) *forked* [{repo_n}]({repo_url})\n\n#Github"""
+            await tgbot.send_message(-1001237141420, text, parse_mode="markdown", Button.inline('Total Forks', b'forks'))
         else:
             return
             # IDK WHat
@@ -114,6 +118,6 @@ async def respond(request: Request):
 
 PORT = config("PORT")
 if __name__ == "__main__":
-    uvicorn.run(
-        "ishish:app", host="0.0.0.0", port=int(PORT), log_level="info", reload=False
-    )
+    app = web.Application()
+    app.router.add_route("POST", "/webhook", respond)
+    web.run_app(app, port=PORT)
