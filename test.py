@@ -1,11 +1,12 @@
-from fastapi import FastAPI, Request
-
-from client import config, tgbot
 import asyncio
 import logging
 
-from decouple import config
 from aiohttp import web
+from decouple import config
+from fastapi import FastAPI, Request
+
+from client import config, tgbot
+
 logging.basicConfig(
     format="[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s", level=logging.WARNING
 )
@@ -30,7 +31,7 @@ async def test(request: Request):
 
 
 async def webh(request):
-    s = await request.json()
+    await request.json()
     om = await tgbot.send_message(-1001237141420, "TEST")
     print(om)
     return web.json_response({"msg": "MC"})
