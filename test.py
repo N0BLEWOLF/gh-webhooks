@@ -3,7 +3,7 @@ import logging
 
 from aiohttp import web
 from decouple import config
-from fastapi import FastAPI, Request
+from fastapi import Request
 
 from client import config, tgbot
 
@@ -18,7 +18,7 @@ print("OK?")
 
 omkk = asyncio.get_event_loop()
 
-#app = FastAPI(debug=True)
+# app = FastAPI(debug=True)
 
 print("Go Injoi!")
 
