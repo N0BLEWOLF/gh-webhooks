@@ -9,6 +9,6 @@ logging.basicConfig(
 APP_ID = config("API_ID")
 API_HASH = config("API_HASH")
 BOT_TOKEN = config("TOKEN")
-tgbot = TelegramClient(None, Var.API_ID, Var.API_HASH).start(bot_token=Var.BOT_TOKEN)
+tgbot = TelegramClient(None, APP_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
 print("OK?")
