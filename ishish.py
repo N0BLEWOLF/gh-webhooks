@@ -4,7 +4,7 @@ from html import escape
 
 import requests
 from decouple import config
-from telethon import events, Button
+from telethon import Button, events
 
 from client import tgbot
 
@@ -38,20 +38,23 @@ def better_time(text):
         cr_time = cr_date.strftime("%m/%d/%Y %H:%M")
     return cr_time
 
+
 async def respond(request):
     result = await request.json()
     #    await tgbot.start(bot_token=BOT_TOKEN)
     # print(request.json)
     d_form = "%d/%m/%y || %H:%M"
+
     @tgbot.on(events.CallbackQuery(pattern="stars"))
     async def callback(event):
-        total_stars = result['repository']['stargazers_count']
+        total_stars = result["repository"]["stargazers_count"]
         await event.answer(f"Total 🌟Stars🌟 are now {total_stars} .", alert=True)
-    
+
     @tgbot.on(events.CallbackQuery(pattern="forks"))
     async def fucku(event):
-        total_forks = result['repository']['forks_count']
+        total_forks = result["repository"]["forks_count"]
         await event.answer(f"Total Forks are {total_forks} ⚡️ .", alert=True)
+
     try:
         # check_s = result["check_suite"]
         # umm = check_s["app"]["head_commit"]
@@ -73,7 +76,9 @@ async def respond(request):
                     commits_text += f"{commit_msg}\n<a href='{commit['url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
                     text = f"""✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits on {escape(result['ref'].split('/')[-1])} branch
 {commits_text}#Github"""
-                    response = await tgbot.send_message(-1001237141420, text, parse_mode="html")
+                    response = await tgbot.send_message(
+                        -1001237141420, text, parse_mode="html"
+                    )
                     print(text)
                     print(response)
         elif result.get("pull_request"):
@@ -98,16 +103,26 @@ async def respond(request):
             repo_url = result["repository"]["html_url"]
             stargiver_uname = result["sender"]["login"]
             stargiver_profile = result["sender"]["html_url"]
-            total_stars = result["repository"]["stargazers_count"]
+            result["repository"]["stargazers_count"]
             text = f"🌟 [{stargiver_uname}]({stargiver_profile}) gave a star to [{repo_name}]({repo_url}).\n\n#Github"
-            await tgbot.send_message(-1001237141420, text, parse_mode="markdown", buttons=Button.inline('Total Stars', b'stars'))
+            await tgbot.send_message(
+                -1001237141420,
+                text,
+                parse_mode="markdown",
+                buttons=Button.inline("Total Stars", b"stars"),
+            )
         elif result.get("forkee"):
             repo_n = str(result["repository"]["name"])
             repo_url = str(result["repository"]["html_url"])
             forker_u = str(result["sender"]["login"])
             forker_p = str(result["sender"]["html_url"])
             text = f"""🍴[{forker_u}]({forker_p}) *forked* [{repo_n}]({repo_url})\n\n#Github"""
-            await tgbot.send_message(-1001237141420, text, parse_mode="markdown", buttons=Button.inline('Total Forks', b'forks'))
+            await tgbot.send_message(
+                -1001237141420,
+                text,
+                parse_mode="markdown",
+                buttons=Button.inline("Total Forks", b"forks"),
+            )
         else:
             return
             # IDK WHat
