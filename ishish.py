@@ -96,7 +96,9 @@ async def respond(request):
                 text = f"**Closed Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})\n\n#Github"
             else:
                 text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})\n\n#Github"
-            await tgbot.send_message(-1001237141420, text, parse_mode="markdown", link_preview=False)
+            await tgbot.send_message(
+                -1001237141420, text, parse_mode="markdown", link_preview=False
+            )
         elif result.get("action") == "started":
             repo_name = result["repository"]["name"]
             repo_url = result["repository"]["html_url"]
@@ -109,7 +111,7 @@ async def respond(request):
                 text,
                 parse_mode="markdown",
                 buttons=Button.inline("Total Stars", b"stars"),
-                link_preview=False
+                link_preview=False,
             )
         elif result.get("forkee"):
             repo_n = str(result["repository"]["name"])
@@ -122,7 +124,7 @@ async def respond(request):
                 text,
                 parse_mode="markdown",
                 buttons=Button.inline("Total Forks", b"forks"),
-                link_preview=False
+                link_preview=False,
             )
         else:
             return
