@@ -11,8 +11,7 @@ from client import tgbot
 BOT_TOKEN = config("TOKEN")
 # from flask import Flask, request, Response
 print("Go Injoi!")
-app = FastAPI(debug=True)
-API = f"https://api.telegram.org/bot{BOT_TOKEN}/"
+"""API = f"https://api.telegram.org/bot{BOT_TOKEN}/"
 
 
 def post_tg(chat, message, parse_mode):
@@ -26,7 +25,7 @@ def post_tg(chat, message, parse_mode):
             "disable_web_page_preview": True,
         },
     ).json()
-    return response
+    return response"""
 
 
 def better_time(text):
