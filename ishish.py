@@ -76,7 +76,7 @@ async def respond(request):
                     text = f"""✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits on {escape(result['ref'].split('/')[-1])} branch
 {commits_text}#Github"""
                     response = await tgbot.send_message(
-                        -1001237141420, text, parse_mode="html"
+                        -1001237141420, text, parse_mode="html", link_preview=False
                     )
                     print(text)
                     print(response)
@@ -96,7 +96,7 @@ async def respond(request):
                 text = f"**Closed Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})\n\n#Github"
             else:
                 text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})\n\n#Github"
-            await tgbot.send_message(-1001237141420, text, parse_mode="markdown")
+            await tgbot.send_message(-1001237141420, text, parse_mode="markdown", link_preview=False)
         elif result.get("action") == "started":
             repo_name = result["repository"]["name"]
             repo_url = result["repository"]["html_url"]
@@ -109,6 +109,7 @@ async def respond(request):
                 text,
                 parse_mode="markdown",
                 buttons=Button.inline("Total Stars", b"stars"),
+                link_preview=False
             )
         elif result.get("forkee"):
             repo_n = str(result["repository"]["name"])
@@ -121,6 +122,7 @@ async def respond(request):
                 text,
                 parse_mode="markdown",
                 buttons=Button.inline("Total Forks", b"forks"),
+                link_preview=False
             )
         else:
             return
