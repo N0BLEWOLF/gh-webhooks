@@ -45,11 +45,11 @@ async def respond(request):
     d_form = "%d/%m/%y || %H:%M"
     @tgbot.on(events.CallbackQuery(pattern="stars"))
     async def callback(event):
-        total_stars = result["repository"]["stargazers_count"]
+        total_stars = result['repository']['stargazers_count']
         await event.answer(f"Total 🌟Stars🌟 are now {total_stars} .", alert=True)
     
     @tgbot.on(events.CallbackQuery(pattern="forks"))
-    async def callback(event):
+    async def fucku(event):
         total_forks = result['repository']['forks_count']
         await event.answer(f"Total Forks are {total_forks} ⚡️ .", alert=True)
     try:
@@ -100,14 +100,14 @@ async def respond(request):
             stargiver_profile = result["sender"]["html_url"]
             total_stars = result["repository"]["stargazers_count"]
             text = f"🌟 [{stargiver_uname}]({stargiver_profile}) gave a star to [{repo_name}]({repo_url}).\n\n#Github"
-            await tgbot.send_message(-1001237141420, text, parse_mode="markdown", Button.inline('Total Stars', b'stars'))
+            await tgbot.send_message(-1001237141420, text, parse_mode="markdown", buttons=Button.inline('Total Stars', b'stars'))
         elif result.get("forkee"):
             repo_n = str(result["repository"]["name"])
             repo_url = str(result["repository"]["html_url"])
             forker_u = str(result["sender"]["login"])
             forker_p = str(result["sender"]["html_url"])
             text = f"""🍴[{forker_u}]({forker_p}) *forked* [{repo_n}]({repo_url})\n\n#Github"""
-            await tgbot.send_message(-1001237141420, text, parse_mode="markdown", Button.inline('Total Forks', b'forks'))
+            await tgbot.send_message(-1001237141420, text, parse_mode="markdown", buttons=Button.inline('Total Forks', b'forks'))
         else:
             return
             # IDK WHat
