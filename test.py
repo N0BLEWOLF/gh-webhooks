@@ -41,3 +41,4 @@ PORT = config("PORT")
 if __name__ == "__main__":
     app = web.Application()
     app.router.add_route("GET", "/webhook", webh)
+    web.run_app(app, port=PORT)
