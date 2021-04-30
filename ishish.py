@@ -71,15 +71,21 @@ async def respond(request):
                 else:
                     commit_msg = commit["message"]
 
-                if len(commits_text) < 1000:
+                if len(commits_text) > 1000:
                     commits_text += f"{commit_msg}\n<a href='{commit['url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
                     text = f"""✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits on {escape(result['ref'].split('/')[-1])} branch
 {commits_text}#Github"""
                     response = await tgbot.send_message(
                         -1001237141420, text, parse_mode="html", link_preview=False
                     )
-                    print(text)
                     print(response)
+                else:
+                    commits_text += f"{commit_msg}\n{commit['id'][:7]} by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
+                    text = f"""✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits to {escape(result['ref'].split('/')[-1])} branch
+{commits_text}#Github"""
+                    response = await tgbot.send_message(
+                        -1001237141420, text, parse_mode="html", link_preview=False, buttons=[[Button.url("View Commit", {commit['url']}), Button.url("Commited By", commit["sender"]["html_url"])]]
+                    )
         elif result.get("pull_request"):
             pr_action = result["action"]
             pr = result["pull_request"]
