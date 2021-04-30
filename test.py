@@ -28,7 +28,7 @@ async def test(request: Request):
 
 
 async def webh(request):
-    await request.json()
+    # await request.json()
     om = await tgbot.send_message(-1001237141420, "TEST")
     print(om)
     return web.json_response({"msg": "MC"})
