@@ -15,7 +15,7 @@ print("Go Injoi!")
 
 
 def post_tg(chat, message, parse_mode):
-    """Send message to desired group"""
+    # Send message to desired group
     response = requests.post(
         API + "sendMessage",
         params={
