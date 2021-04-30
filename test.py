@@ -3,7 +3,6 @@ import logging
 
 from aiohttp import web
 from decouple import config
-from fastapi import Request
 
 from client import config, tgbot
 
