@@ -2,7 +2,6 @@ import traceback
 from datetime import datetime
 from html import escape
 
-import requests
 from decouple import config
 from telethon import Button, events
 
