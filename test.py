@@ -4,16 +4,14 @@ from client import config, tgbot
 import asyncio
 import logging
 
-from aiogram import Bot, Dispatcher, executor
 from decouple import config
-
+from aiohttp import web
 logging.basicConfig(
     format="[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s", level=logging.WARNING
 )
 APP_ID = config("API_ID")
 API_HASH = config("API_HASH")
 BOT_TOKEN = config("TOKEN")
-tgbot = Bot(token=BOT_TOKEN)
 
 print("OK?")
 
@@ -31,14 +29,14 @@ async def test(request: Request):
     return {"hello": "world"}
 
 
-@app.get("/omk")
-async def fuck(request: Request):
+async def webh(request):
+    s = await request.json()
     om = await tgbot.send_message(-1001237141420, "TEST")
     print(om)
-    return {"msg": "MC"}
+    return web.json_response({"msg": "MC"})
 
 
 PORT = config("PORT")
 if __name__ == "__main__":
-    threading.Thread(target=executor.start_polling, args=(dp, skip_updates=True))
-    uvicorn.run("test:app", host="0.0.0.0", port=int(PORT), log_level="info", reload=False)
+    app = web.Application()
+    app.router.add_route("GET", "/webhook", webh)
