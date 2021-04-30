@@ -1,2 +1,2 @@
-web: uvicorn test:app --host=0.0.0.0 --port=${PORT:-5000}
+web: python3 test.py
 worker: python3 client.py
