@@ -91,7 +91,7 @@ async def respond(request):
                         buttons=[
                             [
                                 Button.url("View Commit", {commit["url"]}),
-                                Button.url("Commited By", f"https://github.com/{commit["author"]["username"]}"),
+                                Button.url("Commited By", f"https://github.com/{str(commit["author"]["username"])}"),
                             ]
                         ],
                     )
@@ -120,7 +120,7 @@ async def respond(request):
             stargiver_uname = result["sender"]["login"]
             stargiver_profile = result["sender"]["html_url"]
             result["repository"]["stargazers_count"]
-            text = f"🌟 [{stargiver_uname}]({stargiver_profile}) gave a star to [{repo_name}]({repo_url}).\n\n#Github"
+            text = f"🌟 [{stargiver_uname}]({stargiver_profile}) starred [{repo_name}]({repo_url}).\n\n#Github"
             await tgbot.send_message(
                 -1001237141420,
                 text,
@@ -133,7 +133,7 @@ async def respond(request):
             repo_url = str(result["repository"]["html_url"])
             forker_u = str(result["sender"]["login"])
             forker_p = str(result["sender"]["html_url"])
-            text = f"""🍴[{forker_u}]({forker_p}) *forked* [{repo_n}]({repo_url})\n\n#Github"""
+            text = f"""🍴[{forker_u}]({forker_p}) **forked** [{repo_n}]({repo_url})\n\n#Github"""
             await tgbot.send_message(
                 -1001237141420,
                 text,
