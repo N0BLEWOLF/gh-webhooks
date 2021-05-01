@@ -104,7 +104,7 @@ async def respond(request):
                         -1001237141420,
                         text,
                         parse_mode="html",
-                        buttons=btns
+                        buttons=btns,
                         link_preview=False,
                     )
                     print(response)
