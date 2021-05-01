@@ -72,6 +72,7 @@ async def respond(request):
                 pull_ts = commit["timestamp"]
                 str_time = better_time(pull_ts)
                 commit_url = commit["url"]
+                Commiter = ""
                 if str(commit["author"]["email"]).endswith("users.noreply.github.com"):
                     strss = str.split("+")
                     for i, w in enumerate(strss):
@@ -79,7 +80,6 @@ async def respond(request):
                         Commiter += fk
                 else:
                     users = g.search_users(commit["author"]["email"])
-                    Commiter = ""
                     for user in users:
                         Commiter += user.login
 
