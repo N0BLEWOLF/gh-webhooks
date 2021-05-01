@@ -95,7 +95,7 @@ async def respond(request):
                                 Button.url(
                                     "Commited By",
                                     str((result.get("sender")).get("html_url")),
-                                )
+                                ),
                             ]
                         ],
                     )
