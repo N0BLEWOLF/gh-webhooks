@@ -88,16 +88,13 @@ async def respond(request):
                         -1001237141420,
                         text,
                         parse_mode="html",
-                        link_preview=False,
                         buttons=[
-                            [
+                            (
                                 Button.url("View Commit", {commit["url"]}),
-                                Button.url(
-                                    "Commited By",
-                                    str((result.get("sender")).get("html_url")),
-                                ),
-                            ]
-                        ],
+                                Button.url("Commited By", str(result["sender"]["html_url"]))
+                            )
+                        ]
+                        link_preview=False,
                     )
         elif result.get("pull_request"):
             pr_action = result["action"]
