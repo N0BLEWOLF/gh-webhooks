@@ -2,3 +2,4 @@ python-decouple
 requests
 telethon
 pygithub
+aiohttp
