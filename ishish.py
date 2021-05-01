@@ -93,13 +93,14 @@ async def respond(request):
                     commits_text += f"{commit_msg}\n{commit['id'][:7]} by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
                     text = f"""✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits to {escape(result['ref'].split('/')[-1])} branch
 {commits_text}#Github"""
+                    commit_url = commit["url"]
                     response = await tgbot.send_message(
                         -1001237141420,
                         text,
                         parse_mode="html",
                         buttons=[
                             (
-                                Button.url("View Commit", {commit["url"]}),
+                                Button.url("View Commit", {str(commit_url)}),
                                 Button.url(
                                     "Commited By",
                                     f"https://github.com/{str(Commiter)}",
