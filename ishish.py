@@ -71,10 +71,11 @@ async def respond(request):
                 commit = result["commits"][x]
                 pull_ts = commit["timestamp"]
                 str_time = better_time(pull_ts)
+                Commiter = ""
                 users = g.search_users(commit["author"]["email"])
                 for user in users:
-                    Commiter = user.login
-                str("useless")
+                    Commiter += user.login
+
                 if len(escape(commit["message"])) > 300:
                     commit_msg = escape((commit["message"]).split("\n")[0])
                 else:
