@@ -91,10 +91,12 @@ async def respond(request):
                         buttons=[
                             (
                                 Button.url("View Commit", {commit["url"]}),
-                                Button.url("Commited By", str(result["sender"]["html_url"]))
+                                Button.url(
+                                    "Commited By", str(result["sender"]["html_url"])
+                                ),
                             )
                         ],
-                        link_preview=False
+                        link_preview=False,
                     )
         elif result.get("pull_request"):
             pr_action = result["action"]
