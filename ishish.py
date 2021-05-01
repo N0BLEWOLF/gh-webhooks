@@ -91,7 +91,7 @@ async def respond(request):
                         buttons=[
                             [
                                 Button.url("View Commit", {commit["url"]}),
-                                Button.url("Commited By", commit["sender"]["html_url"]),
+                                Button.url("Commited By", f"https://github.com/{commit["author"]["username"]}"),
                             ]
                         ],
                     )
