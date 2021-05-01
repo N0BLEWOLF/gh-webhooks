@@ -72,6 +72,7 @@ async def respond(request):
                 pull_ts = commit["timestamp"]
                 str_time = better_time(pull_ts)
                 Commiter = ""
+                commit_url = commit["url"]
                 users = g.search_users(commit["author"]["email"])
                 for user in users:
                     Commiter += user.login
