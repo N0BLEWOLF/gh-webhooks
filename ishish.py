@@ -1,4 +1,6 @@
+import github
 import traceback
+
 from datetime import datetime
 from html import escape
 
@@ -37,6 +39,7 @@ def better_time(text):
         cr_time = cr_date.strftime("%m/%d/%Y %H:%M")
     return cr_time
 
+g = github.Github()
 
 async def respond(request):
     result = await request.json()
@@ -67,7 +70,9 @@ async def respond(request):
                 commit = result["commits"][x]
                 pull_ts = commit["timestamp"]
                 str_time = better_time(pull_ts)
-                Commiter = commit["author"]["username"]
+                users = g.search_users(commit["author"]["email"])
+                for user in users:
+                    Commiter = user.login
                 str("useless")
                 if len(escape(commit["message"])) > 300:
                     commit_msg = escape((commit["message"]).split("\n")[0])
