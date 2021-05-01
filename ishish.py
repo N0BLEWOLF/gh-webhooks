@@ -1,9 +1,8 @@
-import github
 import traceback
-
 from datetime import datetime
 from html import escape
 
+import github
 from aiohttp import web
 from decouple import config
 from telethon import Button, events
@@ -39,7 +38,9 @@ def better_time(text):
         cr_time = cr_date.strftime("%m/%d/%Y %H:%M")
     return cr_time
 
+
 g = github.Github()
+
 
 async def respond(request):
     result = await request.json()
