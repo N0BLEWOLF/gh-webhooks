@@ -1,6 +1,4 @@
 python-decouple
 requests
-fastapi
-uvicorn
 telethon
-aiogram
+pygithub
