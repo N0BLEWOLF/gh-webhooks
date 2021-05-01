@@ -59,7 +59,7 @@ async def respond(request):
         # umm = check_s["app"]["head_commit"]
         if result.get("commits"):
             commits_text = ""
-            
+
             rng = len(result["commits"])
             if rng > 10:
                 rng = 10
@@ -94,7 +94,8 @@ async def respond(request):
                             (
                                 Button.url("View Commit", {commit["url"]}),
                                 Button.url(
-                                    "Commited By", f"https://github.com/{str(Commiter)}",
+                                    "Commited By",
+                                    f"https://github.com/{str(Commiter)}",
                                 ),
                             )
                         ],
