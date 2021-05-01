@@ -66,7 +66,7 @@ async def respond(request):
                 commit = result["commits"][x]
                 pull_ts = commit["timestamp"]
                 str_time = better_time(pull_ts)
-                commiter_u = str("useless")
+                str("useless")
                 if len(escape(commit["message"])) > 300:
                     commit_msg = escape((commit["message"]).split("\n")[0])
                 else:
@@ -93,7 +93,8 @@ async def respond(request):
                             [
                                 Button.url("View Commit", {commit["url"]}),
                                 Button.url(
-                                    "Commited By", f"https://github.com/{(commit['author']['username'])}"
+                                    "Commited By",
+                                    f"https://github.com/{(commit['author']['username'])}",
                                 ),
                             ]
                         ],
