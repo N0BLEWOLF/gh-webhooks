@@ -59,6 +59,7 @@ async def respond(request):
         # umm = check_s["app"]["head_commit"]
         if result.get("commits"):
             commits_text = ""
+            
             rng = len(result["commits"])
             if rng > 10:
                 rng = 10
@@ -66,6 +67,7 @@ async def respond(request):
                 commit = result["commits"][x]
                 pull_ts = commit["timestamp"]
                 str_time = better_time(pull_ts)
+                Commiter = commit["author"]["username"]
                 str("useless")
                 if len(escape(commit["message"])) > 300:
                     commit_msg = escape((commit["message"]).split("\n")[0])
@@ -92,12 +94,13 @@ async def respond(request):
                             (
                                 Button.url("View Commit", {commit["url"]}),
                                 Button.url(
-                                    "Commited By", str(result["sender"]["html_url"])
+                                    "Commited By", f"https://github.com/{str(Commiter)}",
                                 ),
                             )
                         ],
                         link_preview=False,
                     )
+                    print(response)
         elif result.get("pull_request"):
             pr_action = result["action"]
             pr = result["pull_request"]
