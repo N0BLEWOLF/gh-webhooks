@@ -80,7 +80,16 @@ async def respond(request):
                     commit_msg = escape((commit["message"]).split("\n")[0])
                 else:
                     commit_msg = commit["message"]
-
+                
+                btns = [
+                    (
+                        Button.url("View Commit", f"{str(commit_url)}"),
+                        Button.url(
+                            "Commited By",
+                            f"https://github.com/{str(Commiter)}",
+                        ),
+                    )
+                ]
                 if len(commits_text) > 1000:
                     commits_text += f"{commit_msg}\n<a href='{commit['url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
                     text = f"""✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits on {escape(result['ref'].split('/')[-1])} branch
@@ -98,7 +107,7 @@ async def respond(request):
                         -1001237141420,
                         text,
                         parse_mode="html",
-                        buttons=Button.url("View Commit", {str(commit_url)}),
+                        buttons=btns,
                         link_preview=False,
                     )
                     print(response)
