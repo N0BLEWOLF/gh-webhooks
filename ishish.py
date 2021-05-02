@@ -1,4 +1,6 @@
 import traceback
+import re
+
 from datetime import datetime
 from html import escape
 
@@ -74,7 +76,7 @@ async def respond(request):
                 commit_url = commit["url"]
                 strr = commit["author"]["email"]
                 Commiter = ""
-                if strr.endswith("noreply.github.com"):
+                if re.search("noreply.github.com", strr):
                     strss = strr.split("+")
                     for i, w in enumerate(strss):
                         fk = w.split("@")[0]
