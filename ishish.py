@@ -82,7 +82,7 @@ async def pcount(event):
     a = get("https://elements.heroku.com/buttons/teamultroid/ultroid").content
     b = bs(a, "html.parser", from_encoding="utf-8")
     c = b.find_all("span", "stats-value")
-    msg = f"**Ultroid** - Total Deploys to heroku: `{c[0].text}`"
+    msg = f"Ultroid - Total Deploys to heroku: {c[0].text}"
     await event.answer(msg, alert=True)
 
 
@@ -152,7 +152,7 @@ async def respond(request):
                 commit = result["commits"][x]
                 pull_ts = commit["timestamp"]
                 str_time = better_time(pull_ts)
-                commit_url = commit["url"]
+                commit_url = commit["html_url"]
                 strr = commit["author"]["email"]
                 Commiter = ""
                 if re.search("noreply.github.com", strr):
@@ -182,7 +182,7 @@ async def respond(request):
                     )
                 ]
                 if len(commits_text) > 1000:
-                    commits_text += f"{commit_msg}\n<a href='{commit['url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
+                    commits_text += f"{commit_msg}\n<a href='{commit['html_url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
                     text = f"""✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits on {escape(result['ref'].split('/')[-1])} branch
 {commits_text}#Github"""
                     response = await tgbot.send_message(
@@ -193,7 +193,6 @@ async def respond(request):
                     commits_text += f"{commit_msg}\n{commit['id'][:7]} by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
                     text = f"""✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits to {escape(result['ref'].split('/')[-1])} branch
 {commits_text}#Github"""
-                    commit["url"]
                     response = await tgbot.send_message(
                         -1001237141420,
                         text,
