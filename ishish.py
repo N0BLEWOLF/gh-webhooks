@@ -116,6 +116,9 @@ async def fucku(event):
             Button.inline("Pull Requests", b"pr_count"),
             Button.inline("Issues", b"issue_count"),
         ],
+        [
+            Button.inline("Deploys", b"deploy_count"),
+        ]
     ]
     await tgbot.send_message(event.chat_id, text, buttons=btns, link_preview=False)
 
