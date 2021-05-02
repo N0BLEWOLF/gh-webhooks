@@ -42,7 +42,62 @@ def better_time(text):
 
 g = github.Github()
 
+@tgbot.on(events.CallbackQuery(pattern="stars_count"))
+async def callback(event):
+    repo = g.get_repo("TeamUltroid/Ultroid")
+    stars = repo.stargazers_count
+    await event.answer(f"Total 🌟Stars🌟 are {stars}.", alert=True)
 
+@tgbot.on(events.CallbackQuery(pattern="forks_count"))
+async def fucku(event):
+    repo = g.get_repo("TeamUltroid/Ultroid")
+    forks = repo.forks_count
+    await event.answer(f"Total Forks are {forks} ⚡️.", alert=True)
+
+
+@tgbot.on(events.CallbackQuery(pattern="pr_count"))
+async def pcount(event):
+    repo = g.get_repo("TeamUltroid/Ultroid")
+    open_pr_count = 0
+    closed_pr_count = 0
+    total_prs = 0
+    for r in repo.get_pulls(state='open'):
+        open_pr_count += 1
+    for r in repo.get_pulls(state='closed'):
+        open_pr_count += 1
+    for r in repo.get_pulls(state='all'):
+        total_prs += 1
+    await event.answer(f"Total Open Pull Requests are {open_pr_count}.\nTotal Closed Pull Requests are {closed_pr_count}\n\nTotal Pull Requests are {total_prs}", alert=True)
+
+@tgbot.on(events.CallbackQuery(pattern="issue_count"))
+async def pcount(event):
+    repo = g.get_repo("TeamUltroid/Ultroid")
+    issue_count = 0
+    for r in repo.get_issues(state='open'):
+        issue_count += 1
+    await event.answer(f"Total Open Issues are: {issue_count}", alert=True)
+
+@tgbot.on(event.NewMessage(pattern="^/stats", func=lambda e: e.is_private))
+@tgbot.on(event.NewMessage(pattern="^/stats@CyberneticistBot", func=lambda e: e.is_group))
+async def fucku(event):
+    repo = g.get_repo("TeamUltroid/Ultroid")
+    desc = repo.description
+    lang = repo.language
+    last_c = repo.last_modified
+    watchers = repo.watchers_count
+    license = repo.get_license().license.name
+    text = f"**Ultroid Userbot Stats**\n\n**Repo:** [Ultroid]({repo.html_url})\n**Description:** {desc}\n**Last Updated:** {last_c}\n**Language:** {lang}\n**Watchers:** {watchers}"
+    btns = [
+        [
+            Button.inline("🌟Stars🌟", b'stars_count'),
+            Button.inline("🍴Forks", b'forks_count')
+        ],
+        [
+            Button.inline("Pull Requests", b'pr_count'),
+            Button.inline("Issues", b'issue_count')
+        ]
+    ]
+    await event.send_message(event.chat_id, text, buttons=btns)
 async def respond(request):
     result = await request.json()
     #    await tgbot.start(bot_token=BOT_TOKEN)
