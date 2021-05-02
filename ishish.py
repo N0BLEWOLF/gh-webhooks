@@ -80,6 +80,8 @@ async def respond(request):
                     for i, w in enumerate(strss):
                         fk = w.split("@")[0]
                         Commiter += fk
+                elif commit["author"]["username"]:
+                    Commiter += commit["author"]["username"]
                 else:
                     users = g.search_users(commit["author"]["email"])
                     for user in users:
