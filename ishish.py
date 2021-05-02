@@ -106,7 +106,7 @@ async def fucku(event):
             Button.inline("Issues", b"issue_count"),
         ],
     ]
-    await event.send_message(event.chat_id, text, buttons=btns)
+    await tgbot.send_message(event.chat_id, text, buttons=btns, link_preview=False)
 
 
 async def respond(request):
