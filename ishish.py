@@ -72,16 +72,17 @@ async def respond(request):
                 pull_ts = commit["timestamp"]
                 str_time = better_time(pull_ts)
                 commit_url = commit["url"]
-                Commiter = "fuck"
-                if str(commit["author"]["email"]).endswith("users.noreply.github.com"):
-                    strss = str.split("+")
+                Commiter = ""
+                if str(commit["author"]["email"]).endswith("noreply.github.com"):
+                    strr = commit["author"]["email"]
+                    strss = strr.split("+")
                     for i, w in enumerate(strss):
                         fk = w.split("@")[0]
-                        Commiter = fk
+                        Commiter += fk
                 else:
                     users = g.search_users(commit["author"]["email"])
                     for user in users:
-                        Commiter = user.login
+                        Commiter += user.login
 
                 if len(escape(commit["message"])) > 300:
                     commit_msg = escape((commit["message"]).split("\n")[0])
