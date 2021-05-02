@@ -72,9 +72,9 @@ async def respond(request):
                 pull_ts = commit["timestamp"]
                 str_time = better_time(pull_ts)
                 commit_url = commit["url"]
+                strr = commit["author"]["email"]
                 Commiter = ""
-                if str(commit["author"]["email"]).endswith("noreply.github.com"):
-                    strr = commit["author"]["email"]
+                if strr.endswith("noreply.github.com"):
                     strss = strr.split("+")
                     for i, w in enumerate(strss):
                         fk = w.split("@")[0]
