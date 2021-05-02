@@ -7,6 +7,8 @@ import github
 from aiohttp import web
 from decouple import config
 from telethon import Button, events
+from requests import get
+from bs4 import BeautifulSoup as bs
 
 from client import tgbot
 
@@ -74,6 +76,14 @@ async def pcount(event):
         alert=True,
     )
 
+
+@tgbot.on(events.CallbackQuery(pattern="deploy_count"))
+async def pcount(event):
+    a = get('https://elements.heroku.com/buttons/teamultroid/ultroid').content
+    b = bs(a,'html.parser',from_encoding='utf-8')
+    c = b.find_all('span','stats-value')
+    msg = f"**Ultroid** - Total Deploys to heroku: `{c[0].text}`"
+    await event.answer(msg, alert=True)
 
 @tgbot.on(events.CallbackQuery(pattern="issue_count"))
 async def pcount(event):
