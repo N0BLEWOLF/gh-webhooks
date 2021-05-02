@@ -86,7 +86,7 @@ async def pcount(event):
 
 @tgbot.on(events.NewMessage(pattern="^/stats", func=lambda e: e.is_private))
 @tgbot.on(
-    event.NewMessage(pattern="^/stats@CyberneticistBot", func=lambda e: e.is_group)
+    events.NewMessage(pattern="^/stats@CyberneticistBot", func=lambda e: e.is_group)
 )
 async def fucku(event):
     repo = g.get_repo("TeamUltroid/Ultroid")
