@@ -66,7 +66,7 @@ async def pcount(event):
     for r in repo.get_pulls(state="open"):
         open_pr_count += 1
     for r in repo.get_pulls(state="closed"):
-        open_pr_count += 1
+        closed_pr_count += 1
     for r in repo.get_pulls(state="all"):
         total_prs += 1
     await event.answer(
@@ -94,7 +94,7 @@ async def fucku(event):
     lang = repo.language
     last_c = repo.last_modified
     watchers = repo.watchers_count
-    repo.get_license().license.name
+    license = repo.get_license().license.name
     text = f"**Ultroid Userbot Stats**\n\n**Repo:** [Ultroid]({repo.html_url})\n**Description:** {desc}\n**Last Updated:** {last_c}\n**Language:** {lang}\n**Watchers:** {watchers}\n\n**License:** {license}"
     btns = [
         [
