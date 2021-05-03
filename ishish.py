@@ -152,7 +152,7 @@ async def respond(request):
                 commit = result["commits"][x]
                 pull_ts = commit["timestamp"]
                 str_time = better_time(pull_ts)
-                commit_url = commit["url"]
+                commit_url = commit["html_url"]
                 strr = commit["author"]["email"]
                 Commiter = ""
                 if re.search("noreply.github.com", strr):
@@ -182,7 +182,7 @@ async def respond(request):
                     )
                 ]
                 if len(commits_text) > 1000:
-                    commits_text += f"{commit_msg}\n<a href='{commit['html_url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
+                    commits_text += f"{commit_msg}\n<a href='{commit['url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
                     text = f"""✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits on {escape(result['ref'].split('/')[-1])} branch
 {commits_text}#Github"""
                     response = await tgbot.send_message(
