@@ -152,7 +152,7 @@ async def respond(request):
                 commit = result["commits"][x]
                 pull_ts = commit["timestamp"]
                 str_time = better_time(pull_ts)
-                commit_url = commit["html_url"]
+                commit_url = commit["url"]
                 strr = commit["author"]["email"]
                 Commiter = ""
                 if re.search("noreply.github.com", strr):
