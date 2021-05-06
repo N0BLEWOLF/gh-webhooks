@@ -157,9 +157,8 @@ async def respond(request):
                 Commiter = ""
                 if re.search("noreply.github.com", strr):
                     strss = strr.split("+")
-                    for i, w in enumerate(strss):
-                        fk = w.split("@")[0]
-                        Commiter += fk
+                    fk = strss[1].split("@")[0]
+                    Commiter += fk
                 elif commit["author"]["username"]:
                     Commiter += commit["author"]["username"]
                 else:
