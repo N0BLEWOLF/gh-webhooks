@@ -6,11 +6,10 @@ from html import escape
 import github
 from aiohttp import web
 from bs4 import BeautifulSoup as bs
+from client import tgbot
 from decouple import config
 from requests import get
 from telethon import Button, events
-
-from client import tgbot
 
 BOT_TOKEN = config("TOKEN")
 # from flask import Flask, request, Response

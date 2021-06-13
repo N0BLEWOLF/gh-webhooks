@@ -2,9 +2,8 @@ import asyncio
 import logging
 
 from aiohttp import web
-from decouple import config
-
 from client import config, tgbot
+from decouple import config
 
 logging.basicConfig(
     format="[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s", level=logging.WARNING
