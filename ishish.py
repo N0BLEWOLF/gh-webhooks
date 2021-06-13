@@ -6,29 +6,31 @@ from html import escape
 import github
 from aiohttp import web
 from bs4 import BeautifulSoup as bs
-from client import tgbot
 from decouple import config
 from requests import get
 from telethon import Button, events
 
-BOT_TOKEN = config("TOKEN")
-# from flask import Flask, request, Response
+from config import tgbot, AUTH_CHATS
+
 print("Go Injoi!")
-"""API = f"https://api.telegram.org/bot{BOT_TOKEN}/"
+
+def better_time(text):
+    try:
+        cr_date = datetime.strptime(text, "%Y-%m-%dT%H:%M:%SZ")
+        cr_time = cr_date.strftime("%m/%d/%Y %H:%M")
+    except ValueError:
+        cr_date = datetime.strptime(text, "%Y-%m-%dT%H:%M:%S+05:30")
+        cr_time = cr_date.strftime("%m/%d/%Y %H:%M")
+    return cr_time
 
 
-def post_tg(chat, message, parse_mode):
-    # Send message to desired group
-    response = requests.post(
-        API + "sendMessage",
-        params={
-            "chat_id": chat,
-            "text": message,
-            "parse_mode": parse_mode,
-            "disable_web_page_preview": True,
-        },
-    ).json()
-    return response"""
+g = github.Github()
+
+
+if re.search(" ", AUTH_CHATS):
+    GB_grps = AUTH_CHATS.split(" ")
+else:
+    GB_grps = AUTH_CHATS
 
 
 def better_time(text):
@@ -42,6 +44,40 @@ def better_time(text):
 
 
 g = github.Github()
+
+
+async def send_msg(chat, text, buttons=None, **kwargs):
+    txt = text
+    parse_mode = kwargs.get("parse_mode", "markdown")
+    link_preview = False
+    if isinstance(chat, list):
+        for ch in chat:
+            if buttons != None:
+                await tgbot.send_message(
+                    int(ch),
+                    txt,
+                    buttons=buttons,
+                    link_preview=link_preview,
+                    parse_mode=parse_mode,
+                )
+            else:
+                await tgbot.send_message(
+                    int(ch), txt, link_preview=link_preview, parse_mode=parse_mode
+                )
+            break
+    elif isinstance(chat, str) or isinstance(chat, int):
+        if buttons != None:
+            await tgbot.send_message(
+                int(chat),
+                txt,
+                buttons=buttons,
+                link_preview=link_preview,
+                parse_mode=parse_mode,
+            )
+        else:
+            await tgbot.send_message(
+                int(chat), txt, link_preview=link_preview, parse_mode=parse_mode
+            )
 
 
 @tgbot.on(events.CallbackQuery(pattern="stars_count"))
@@ -94,10 +130,8 @@ async def pcount(event):
     await event.answer(f"Total Open Issues are: {issue_count}", alert=True)
 
 
-@tgbot.on(events.NewMessage(pattern="^/stats", func=lambda e: e.is_private))
-@tgbot.on(
-    events.NewMessage(pattern="^/stats@CyberneticistBot", func=lambda e: e.is_group)
-)
+@ultroid_cmd("stats")
+@ultroid_cmd("stats@UltroidRobot")
 async def fucku(event):
     repo = g.get_repo("TeamUltroid/Ultroid")
     desc = repo.description
@@ -105,7 +139,7 @@ async def fucku(event):
     last_c = repo.last_modified
     watchers = repo.watchers_count
     license = repo.get_license().license.name
-    text = f"**Ultroid Userbot Stats**\n\n**Repo:** [Ultroid]({repo.html_url})\n**Description:** {desc}\n**Last Updated:** {last_c}\n**Language:** {lang}\n**Watchers:** {watchers}\n\n**License:** {license}"
+    text = f"**Ultroid Userbot Stats**\n\n**Repo:** [Ultroid]({repo.html_url})\n**Description:** {desc}\n**Last Updated:** {last_c}\n**Language:** {lang}\n**Watchers:** {watchers}\n\n**License:** {license}\n\n\n#GithubBot"
     btns = [
         [
             Button.inline("🌟Stars🌟", b"stars_count"),
@@ -119,7 +153,7 @@ async def fucku(event):
             Button.inline("Deploys", b"deploy_count"),
         ],
     ]
-    await tgbot.send_message(event.chat_id, text, buttons=btns, link_preview=False)
+    await send_msg(event.chat_id, text, buttons=btns, link_preview=False)
 
 
 async def respond(request):
@@ -127,16 +161,6 @@ async def respond(request):
     #    await tgbot.start(bot_token=BOT_TOKEN)
     # print(request.json)
     d_form = "%d/%m/%y || %H:%M"
-
-    @tgbot.on(events.CallbackQuery(pattern="stars"))
-    async def callback(event):
-        total_stars = result["repository"]["stargazers_count"]
-        await event.answer(f"Total 🌟Stars🌟 are now {total_stars} .", alert=True)
-
-    @tgbot.on(events.CallbackQuery(pattern="forks"))
-    async def fucku(event):
-        total_forks = result["repository"]["forks_count"]
-        await event.answer(f"Total Forks are {total_forks} ⚡️ .", alert=True)
 
     try:
         # check_s = result["check_suite"]
@@ -182,23 +206,20 @@ async def respond(request):
                 if len(commits_text) > 1000:
                     commits_text += f"{commit_msg}\n<a href='{commit['url']}'>{commit['id'][:7]}</a> by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
                     text = f"""✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits on {escape(result['ref'].split('/')[-1])} branch
-{commits_text}#Github"""
-                    response = await tgbot.send_message(
-                        -1001237141420, text, parse_mode="html", link_preview=False
-                    )
-                    print(response)
+{commits_text}#GithubBot"""
+                    await send_msg(GB_grps, text, parse_mode="html", link_preview=False)
                 else:
                     commits_text += f"{commit_msg}\n{commit['id'][:7]} by {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
                     text = f"""✨ <b>{escape(result['repository']['name'])}</b> : New {len(result['commits'])} commits to {escape(result['ref'].split('/')[-1])} branch
-{commits_text}#Github"""
-                    response = await tgbot.send_message(
-                        -1001237141420,
+{commits_text}#GithubBot"""
+                    await send_msg(
+                        GB_grps,
                         text,
                         parse_mode="html",
                         buttons=btns,
                         link_preview=False,
                     )
-                    print(response)
+
         elif result.get("pull_request"):
             pr_action = result["action"]
             pr = result["pull_request"]
@@ -210,36 +231,47 @@ async def respond(request):
             str_time = better_time(pull_ts)
             pull_pusher = pr["user"]["login"]
             if pr_action == "opened":
-                text = f"**Opened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})\n\n#Github"
+                text = f"**Opened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})\n\n#GithubBot"
             elif pr_action == "closed":
-                text = f"**Closed Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})\n\n#Github"
+                text = f"**Closed Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})\n\n#GithubBot"
             else:
-                text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})\n\n#Github"
-            await tgbot.send_message(
-                -1001237141420, text, parse_mode="markdown", link_preview=False
-            )
+                text = f"**Reopened Pull Request**\nBy: {pull_pusher}\n[{pull_t}]({pull_r})\n**Timestamp**: {str_time}\n[Commits]({pull_commits})\n\n#GithubBot"
+            await send_msg(GB_grps, text, parse_mode="markdown", link_preview=False)
         elif result.get("action") == "started":
+
+            @tgbot.on(events.CallbackQuery(pattern="stars"))
+            async def callback(event):
+                total_stars = result["repository"]["stargazers_count"]
+                await event.answer(f"Total 🌟Stars🌟 are now {total_stars} .", alert=True)
+
             repo_name = result["repository"]["name"]
             repo_url = result["repository"]["html_url"]
             stargiver_uname = result["sender"]["login"]
             stargiver_profile = result["sender"]["html_url"]
             result["repository"]["stargazers_count"]
-            text = f"🌟 [{stargiver_uname}]({stargiver_profile}) starred [{repo_name}]({repo_url}).\n\n#Github"
-            await tgbot.send_message(
-                -1001237141420,
+            text = f"🌟 [{stargiver_uname}]({stargiver_profile}) starred [{repo_name}]({repo_url}).\n\n#GithubBot"
+            await send_msg(
+                GB_grps,
                 text,
                 parse_mode="markdown",
                 buttons=Button.inline("Total Stars", b"stars"),
                 link_preview=False,
             )
         elif result.get("forkee"):
+
+            @tgbot.on(events.CallbackQuery(pattern="forks"))
+            async def fucku(event):
+                total_forks = result["repository"]["forks_count"]
+                await event.answer(f"Total Forks are {total_forks} ⚡️ .", alert=True)
+
             repo_n = str(result["repository"]["name"])
             repo_url = str(result["repository"]["html_url"])
             forker_u = str(result["sender"]["login"])
             forker_p = str(result["sender"]["html_url"])
-            text = f"""🍴[{forker_u}]({forker_p}) **forked** [{repo_n}]({repo_url})\n\n#Github"""
-            await tgbot.send_message(
-                -1001237141420,
+            text = f"""🍴[{forker_u}]({forker_p}) **forked** [{repo_n}]({repo_url})\n\n#GithubBot"""
+
+            await send_msg(
+                GB_grps,
                 text,
                 parse_mode="markdown",
                 buttons=Button.inline("Total Forks", b"forks"),
