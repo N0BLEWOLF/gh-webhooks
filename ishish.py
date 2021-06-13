@@ -10,9 +10,10 @@ from decouple import config
 from requests import get
 from telethon import Button, events
 
-from config import tgbot, AUTH_CHATS
+from config import AUTH_CHATS, tgbot
 
 print("Go Injoi!")
+
 
 def better_time(text):
     try:
@@ -52,7 +53,7 @@ async def send_msg(chat, text, buttons=None, **kwargs):
     link_preview = False
     if isinstance(chat, list):
         for ch in chat:
-            if buttons != None:
+            if buttons is not None:
                 await tgbot.send_message(
                     int(ch),
                     txt,
@@ -66,7 +67,7 @@ async def send_msg(chat, text, buttons=None, **kwargs):
                 )
             break
     elif isinstance(chat, str) or isinstance(chat, int):
-        if buttons != None:
+        if buttons is not None:
             await tgbot.send_message(
                 int(chat),
                 txt,
