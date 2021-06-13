@@ -131,8 +131,7 @@ async def pcount(event):
     await event.answer(f"Total Open Issues are: {issue_count}", alert=True)
 
 
-@ultroid_cmd("stats")
-@ultroid_cmd("stats@UltroidRobot")
+@tgbot.on(events.NewMessage(pattern="^/stats"))
 async def fucku(event):
     repo = g.get_repo("TeamUltroid/Ultroid")
     desc = repo.description
@@ -140,7 +139,7 @@ async def fucku(event):
     last_c = repo.last_modified
     watchers = repo.watchers_count
     license = repo.get_license().license.name
-    text = f"**Ultroid Userbot Stats**\n\n**Repo:** [Ultroid]({repo.html_url})\n**Description:** {desc}\n**Last Updated:** {last_c}\n**Language:** {lang}\n**Watchers:** {watchers}\n\n**License:** {license}\n\n\n#GithubBot"
+    text = f"**{repo.title} Stats**\n\n**Repo:** [Ultroid]({repo.html_url})\n**Description:** {desc}\n**Last Updated:** {last_c}\n**Language:** {lang}\n**Watchers:** {watchers}\n\n**License:** {license}\n\n\n#GithubBot"
     btns = [
         [
             Button.inline("🌟Stars🌟", b"stars_count"),
