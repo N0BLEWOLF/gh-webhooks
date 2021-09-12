@@ -83,21 +83,21 @@ async def send_msg(chat, text, buttons=None, **kwargs):
 
 @tgbot.on(events.CallbackQuery(pattern="stars_count"))
 async def callback(event):
-    repo = g.get_repo("TeamUltroid/Ultroid")
+    repo = g.get_repo("DevsExpo/FridayUserBot")
     stars = repo.stargazers_count
     await event.answer(f"Total 🌟Stars🌟 are {stars}.", alert=True)
 
 
 @tgbot.on(events.CallbackQuery(pattern="forks_count"))
 async def fucku(event):
-    repo = g.get_repo("TeamUltroid/Ultroid")
+    repo = g.get_repo("DevsExpo/FridayUserBot")
     forks = repo.forks_count
     await event.answer(f"Total Forks are {forks} ⚡️.", alert=True)
 
 
 @tgbot.on(events.CallbackQuery(pattern="pr_count"))
 async def pcount(event):
-    repo = g.get_repo("TeamUltroid/Ultroid")
+    repo = g.get_repo("DevsExpo/FridayUserBot")
     open_pr_count = 0
     closed_pr_count = 0
     total_prs = 0
@@ -115,7 +115,7 @@ async def pcount(event):
 
 @tgbot.on(events.CallbackQuery(pattern="deploy_count"))
 async def pcount(event):
-    a = get("https://elements.heroku.com/buttons/teamultroid/ultroid").content
+    a = get("https://elements.heroku.com/buttons/DevsExpo/FridayUserBot").content
     b = bs(a, "html.parser", from_encoding="utf-8")
     c = b.find_all("span", "stats-value")
     msg = f"Ultroid - Total Deploys to heroku: {c[0].text}"
@@ -124,7 +124,7 @@ async def pcount(event):
 
 @tgbot.on(events.CallbackQuery(pattern="issue_count"))
 async def pcount(event):
-    repo = g.get_repo("TeamUltroid/Ultroid")
+    repo = g.get_repo("DevsExpo/FridayUserBot")
     issue_count = 0
     for r in repo.get_issues(state="open"):
         issue_count += 1
@@ -133,13 +133,13 @@ async def pcount(event):
 
 @tgbot.on(events.NewMessage(pattern="^/stats"))
 async def fucku(event):
-    repo = g.get_repo("TeamUltroid/Ultroid")
+    repo = g.get_repo("DevsExpo/FridayUserBot")
     desc = repo.description
     lang = repo.language
     last_c = repo.last_modified
     watchers = repo.watchers_count
     license = repo.get_license().license.name
-    text = f"**{repo.title} Stats**\n\n**Repo:** [Ultroid]({repo.html_url})\n**Description:** {desc}\n**Last Updated:** {last_c}\n**Language:** {lang}\n**Watchers:** {watchers}\n\n**License:** {license}\n\n\n#GithubBot"
+    text = f"**{repo.title} Stats**\n\n**Repo:** [Friday]({repo.html_url})\n**Description:** {desc}\n**Last Updated:** {last_c}\n**Language:** {lang}\n**Watchers:** {watchers}\n\n**License:** {license}\n\n\n#GithubBot"
     btns = [
         [
             Button.inline("🌟Stars🌟", b"stars_count"),
