@@ -85,14 +85,14 @@ async def send_msg(chat, text, buttons=None, **kwargs):
 async def callback(event):
     repo = g.get_repo("DevsExpo/FridayUserBot")
     stars = repo.stargazers_count
-    await event.answer(f"Total 🌟Stars🌟 are {stars}.", alert=True)
+    await event.answer(f"Total 🌟Stars🌟 are {stars}", alert=True)
 
 
 @tgbot.on(events.CallbackQuery(pattern="forks_count"))
 async def fucku(event):
     repo = g.get_repo("DevsExpo/FridayUserBot")
     forks = repo.forks_count
-    await event.answer(f"Total Forks are {forks} ⚡️.", alert=True)
+    await event.answer(f"Total Forks are {forks} ⚡️", alert=True)
 
 
 @tgbot.on(events.CallbackQuery(pattern="pr_count"))
@@ -118,7 +118,7 @@ async def pcount(event):
     a = get("https://elements.heroku.com/buttons/DevsExpo/FridayUserBot").content
     b = bs(a, "html.parser", from_encoding="utf-8")
     c = b.find_all("span", "stats-value")
-    msg = f"Ultroid - Total Deploys to heroku: {c[0].text}"
+    msg = f"Friday - Total Deploys to heroku: {c[0].text}"
     await event.answer(msg, alert=True)
 
 
