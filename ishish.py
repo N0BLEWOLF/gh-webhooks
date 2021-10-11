@@ -85,14 +85,14 @@ async def send_msg(chat, text, buttons=None, **kwargs):
 async def callback(event):
     repo = g.get_repo("DevsExpo/FridayUserBot")
     stars = repo.stargazers_count
-    await event.answer(f"Total 🌟Stars🌟 are {stars}", alert=True)
+    await event.answer(f"Total 🌟 Stars 🌟 are {stars}", alert=True)
 
 
 @tgbot.on(events.CallbackQuery(pattern="forks_count"))
 async def fucku(event):
     repo = g.get_repo("DevsExpo/FridayUserBot")
     forks = repo.forks_count
-    await event.answer(f"Total Forks are {forks} ⚡️", alert=True)
+    await event.answer(f"Total 🍴Forks🍴 are {forks} ", alert=True)
 
 
 @tgbot.on(events.CallbackQuery(pattern="pr_count"))
@@ -139,11 +139,11 @@ async def fucku(event):
     last_c = repo.last_modified
     watchers = repo.watchers_count
     license = repo.get_license().license.name
-    text = f"**{repo.name} Stats**\n\n**Repo:** [Friday]({repo.html_url})\n**Description:** {desc}\n**Last Updated:** {last_c}\n**Language:** {lang}\n**Watchers:** {watchers}\n\n**License:** {license}\n\n\n#GithubBot"
+    text = f"**{repo.name} Stats**\n\n**Repo:** [Friday]({repo.html_url})\n**Description:** {desc}\n**Last Updated:** {last_c}\n**Language:** {lang}\n**Watchers:** {watchers}\n\n**License:** {license}\n\n\n#FridayUB\n#GithubBot"
     btns = [
         [
-            Button.inline("🌟Stars🌟", b"stars_count"),
-            Button.inline("🍴Forks", b"forks_count"),
+            Button.inline("🌟 Stars 🌟", b"stars_count"),
+            Button.inline("🍴 Forks 🍴", b"forks_count"),
         ],
         [
             Button.inline("Pull Requests", b"pr_count"),
@@ -242,14 +242,14 @@ async def respond(request):
             @tgbot.on(events.CallbackQuery(pattern="stars"))
             async def callback(event):
                 total_stars = result["repository"]["stargazers_count"]
-                await event.answer(f"Total 🌟Stars🌟 are now {total_stars} .", alert=True)
+                await event.answer(f"Total 🌟Stars🌟 are now {total_stars} ", alert=True)
 
             repo_name = result["repository"]["name"]
             repo_url = result["repository"]["html_url"]
             stargiver_uname = result["sender"]["login"]
             stargiver_profile = result["sender"]["html_url"]
             result["repository"]["stargazers_count"]
-            text = f"🌟 [{stargiver_uname}]({stargiver_profile}) starred [{repo_name}]({repo_url}).\n\n#GithubBot"
+            text = f"🌟 [{stargiver_uname}]({stargiver_profile}) starred [{repo_name}]({repo_url}).\n\n#Starred\n#GithubBot"
             await send_msg(
                 GB_grps,
                 text,
@@ -262,13 +262,13 @@ async def respond(request):
             @tgbot.on(events.CallbackQuery(pattern="forks"))
             async def fucku(event):
                 total_forks = result["repository"]["forks_count"]
-                await event.answer(f"Total Forks are {total_forks} ⚡️ .", alert=True)
+                await event.answer(f"Total Forks 🍴 are {total_forks} ", alert=True)
 
             repo_n = str(result["repository"]["name"])
             repo_url = str(result["repository"]["html_url"])
             forker_u = str(result["sender"]["login"])
             forker_p = str(result["sender"]["html_url"])
-            text = f"""🍴[{forker_u}]({forker_p}) **forked** [{repo_n}]({repo_url})\n\n#GithubBot"""
+            text = f"""🍴[{forker_u}]({forker_p}) **forked** [{repo_n}]({repo_url})\n\n#Forked\n#GithubBot"""
 
             await send_msg(
                 GB_grps,
