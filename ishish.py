@@ -1,5 +1,6 @@
 import re
 import traceback
+from collections import OrderedDict
 from datetime import datetime
 from html import escape
 
@@ -11,7 +12,6 @@ from requests import get
 from telethon import Button, events
 
 from config import AUTH_CHATS, tgbot
-from collections import OrderedDict
 
 print("Go Injoi!")
 
@@ -50,7 +50,8 @@ g = github.Github()
 
 async def send_msg(chat, text, buttons=None, **kwargs):
     txt = text
-    chat=list(OrderedDict.fromkeys(chat)) # delete duplicate elements from a  list
+    # delete duplicate elements from a  list
+    chat = list(OrderedDict.fromkeys(chat))
     parse_mode = kwargs.get("parse_mode", "markdown")
     link_preview = False
     if isinstance(chat, list):
